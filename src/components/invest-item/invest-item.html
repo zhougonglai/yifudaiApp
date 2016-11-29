@@ -1,0 +1,43 @@
+<ion-card *ngFor="let invest of invests;let i = $index" (click)="goToDetail(invest)">
+  <ion-card-header>
+    {{invest.title}}
+    <ion-chip [ngSwitch]="invest.mark">
+      <ion-icon *ngSwitchCase="'1'">信</ion-icon>
+      <ion-icon *ngSwitchCase="'2'">担</ion-icon>
+      <ion-icon *ngSwitchCase="'3'">押</ion-icon>
+      <ion-icon *ngSwitchCase="'4'">实</ion-icon>
+      <ion-icon *ngSwitchCase="'5'">保</ion-icon>
+      <ion-icon *ngSwitchCase="'6'">转</ion-icon>
+      <ion-label>
+        {{invest.level}}
+      </ion-label>
+    </ion-chip>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-grid>
+      <ion-row wrap>
+        <ion-col width-33>
+          <h2>{{invest.rate}}%</h2>
+          <p>年化率</p>
+        </ion-col>
+        <ion-col width-33>
+          <h2>{{invest.date}}</h2>
+          <p>投资期限</p>
+        </ion-col>
+        <ion-col width-33>
+          <h2>{{invest.money}}</h2>
+          <p>借款金额</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-progress [max]="invest.money" [existed]="invest.existed"></ion-progress>
+  </ion-card-content>
+  <ion-list no-lines>
+    <ion-item style="border-top: 1px solid #eee;">
+      <ion-note> 100元起投</ion-note>
+      <button ion-button outline small item-right>
+        立即投资
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-card>

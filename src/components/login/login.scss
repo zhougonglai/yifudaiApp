@@ -1,0 +1,43 @@
+login {
+  .slide-zoom{
+    height: 100%;
+  }
+  .code{
+    border-radius: 50px;
+    border: 1px solid;
+    padding: 5px 8px;
+  }
+  p{
+    color: #8f8f8f;
+  }
+  ion-grid{
+    padding-top: 18px;
+    ion-row{
+      ion-col{
+        padding-top: 25px;
+        .icon{
+          font-size: 9vw;
+        }
+        height: 33vw;
+        position: relative;
+
+        &:nth-of-type(1){
+          border-top: 1px solid #eee;
+          color:#2196f3;
+        }
+        &:nth-of-type(3){
+          border-top: 1px solid #eee;
+          color:#2196f3;
+        }
+        &:nth-of-type(2):after{
+            content:'社区账号登录';
+            width:100%;
+            position: absolute;
+            top:-12px;
+            left:0;
+            color:#2196f3;
+        }
+      }
+    }
+  }
+}

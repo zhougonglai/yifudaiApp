@@ -1,0 +1,44 @@
+ion-progress {
+  div.container{
+    height: 42px;
+    position: relative;
+  }
+  div.progress{
+    width: 100%;
+    height: 4px;
+    background-color:rgba(56, 126, 245,.5);
+    position: absolute;
+    bottom:0;
+
+    .existed{
+      height: 100%;
+      background-color:rgb(56, 126, 245);
+    }
+    .active{
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color:rgb(56, 126, 245);
+      border-radius: 50px;
+      top: -3px;
+
+      &:after{
+        content: '';
+        position: absolute;
+        width: 2px;
+        height: 22px;
+        background-color: #387ef5;
+        bottom: 0;
+        left: 4px;
+      }
+
+      .label{
+        position: relative;
+        width: 100px;
+        bottom: 33px;
+        font-size: 14px;
+        background: rgba(0,0,0,0);
+      }
+    }
+  }
+}

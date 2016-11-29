@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{invest.title}}</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div style="border-top: 1px solid #eee;">
+    <ion-slides #mySlider [options]="slides">
+      <ion-slide class="card-md" *ngFor="let investItem of invest.investList;let i = index;">
+          <ion-card-header>
+            第 <span>{{ i + 1 }}</span> 期
+            <ion-icon [name]="investItem.isDone?'checkmark-circle-outline':'radio-button-on'" [color]="investItem.isDone?'primary':'secondary'" class="pull-right"></ion-icon>
+          </ion-card-header>
+          <ion-item>
+            还款人:
+            <ion-note item-right class="primary">{{investItem.user}}</ion-note>
+          </ion-item>
+          <ion-item>
+            还款本金:
+            <ion-note item-right class="primary">{{investItem.money}} 元</ion-note>
+          </ion-item>
+          <ion-item>
+            还款利息:
+            <ion-note item-right class="primary">{{investItem.rate}} 元</ion-note>
+          </ion-item>
+          <ion-item>
+            还款总金额:
+            <ion-note item-right class="primary">{{investItem.rateMoney}} 元</ion-note>
+          </ion-item>
+          <ion-item>
+            还款日:{{investItem.time}}
+          </ion-item>
+      </ion-slide>
+    </ion-slides>
+  </div>
+</ion-content>

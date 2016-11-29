@@ -1,0 +1,48 @@
+page-home {
+  ion-navbar{
+
+  }
+
+  ion-slides{
+    height:200px;
+
+    ion-slide{
+      .slide-zoom {
+        height: 100%;
+      }
+
+      img{
+        width: 100% !important;
+        height: 100% !important;
+      }
+    }
+  }
+
+  ion-grid{
+    padding:0;
+    ion-row{
+      &.row{
+        height: 25vw;
+
+        ion-col{
+          height: 100%;
+          padding:16px 0;
+          text-align: center;
+          border-right:1px solid #eeeeee;
+          border-bottom: 1px solid #eeeeee;
+
+
+          .icon{
+            font-size:40px;
+            height: 50%;
+            width: 100%;
+          }
+
+
+        }
+
+
+      }
+    }
+  }
+}

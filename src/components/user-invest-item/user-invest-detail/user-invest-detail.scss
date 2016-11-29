@@ -1,0 +1,40 @@
+page-user-invest-detail {
+  ion-slides{
+    //width:80%;
+    .swiper-container {
+      overflow: visible !important;
+      ion-slide {
+        width: 100% !important;
+        transform: scale(.9) !important;
+        margin: 10px 0 !important;
+        .slide-zoom {
+          height: 100%;
+        }
+
+        ion-card-header{
+          border-bottom: 1px solid #eee;
+        }
+        ion-card-content{
+          height: calc(100% - 50px);
+
+
+          ion-grid{
+            height: 60%;
+            ion-row{
+              height: 100%;
+
+              ion-col:50%;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .swiper-container-horizontal > .swiper-pagination {
+    bottom: inherit;
+    left: 0;
+    width: 100%;
+    top:6px;
+  }
+}

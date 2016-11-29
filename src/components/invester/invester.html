@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="dismiss()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      输入金额
+    </ion-title>
+    <ion-buttons right>
+      <button ion-button (click)="showCheckBox()">
+        红包
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list inset>
+    <ion-item>
+      可投金额:
+      <ion-note item-right>1000元</ion-note>
+    </ion-item>
+    <ion-item>
+      账户余额:
+      <ion-note item-right>252元</ion-note>
+    </ion-item>
+    <ion-item>
+      充值红包余额:
+      <ion-note item-right>2.2元</ion-note>
+    </ion-item>
+    <ion-item style="border-bottom: 1px solid #c8c7cc;">
+      <ion-input type="tel" placeholder="投资金额,100的整数倍" clearInput></ion-input>
+      <ion-icon name="logo-yen" item-right></ion-icon>
+    </ion-item>
+  </ion-list>
+  <ion-grid>
+    <ion-row wrap>
+      <ion-col width-50 style="border-right: 1px solid #eee;border-bottom: 1px solid #eee">
+        <h4>13300 元</h4>
+        <p>实际投资</p>
+      </ion-col>
+      <ion-col width-50 style="border-bottom: 1px solid #eee">
+        <h4>1200.0 元</h4>
+        <p>预期收益</p>
+      </ion-col>
+      <ion-col width-50 style="border-right: 1px solid #eee">
+        <h4>123.02 元</h4>
+        <p>个人支付</p>
+      </ion-col>
+      <ion-col width-50>
+        <h4>123.000 元</h4>
+        <p>充值红包</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

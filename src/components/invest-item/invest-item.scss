@@ -1,0 +1,27 @@
+invest-item {
+  ion-icon{
+    text-align: center;
+  }
+  ion-grid{
+    ion-row{
+      ion-col{
+        text-align: center;
+      }
+    }
+  }
+
+  ion-card{
+    ion-card-header{
+      line-height: 36px;
+      ion-chip{
+        float: right;
+      }
+    }
+
+  }
+
+  .range-knob,
+  .range-bar.range-bar-active{
+    background: #387ef5 !important;
+  }
+}

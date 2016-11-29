@@ -1,0 +1,37 @@
+<ion-header>
+  <!--<ion-navbar color="primary" no-border-bottom>-->
+    <!--<ion-title>我要投资</ion-title>-->
+  <!--</ion-navbar>-->
+  <ion-toolbar no-border-bottom color="primary">
+    <ion-segment color="light" [(ngModel)]="invest" (ionChange)="goToDetail(invest)">
+      <ion-segment-button [value]="investTypes[0]">
+        全部
+      </ion-segment-button>
+      <ion-segment-button [value]="investTypes[1]">
+        散标投资
+      </ion-segment-button>
+      <ion-segment-button [value]="investTypes[2]">
+        消费金融
+      </ion-segment-button>
+      <ion-segment-button [value]="investTypes[3]">
+        债权转让
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-slides #sliderDetail (ionDidChange)="onSlideChanged()">
+    <ion-slide >
+        <invest-item [invests]="allInvest"></invest-item>
+    </ion-slide>
+    <ion-slide >
+      <invest-item [invests]="sanbiaoInvest"></invest-item>
+    </ion-slide>
+    <ion-slide class="scroll-content">
+      <invest-item [invests]="xiaofeiInvest"></invest-item>
+    </ion-slide>
+    <ion-slide class="scroll-content">
+      <invest-item [invests]="zhaiquanInvest"></invest-item>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

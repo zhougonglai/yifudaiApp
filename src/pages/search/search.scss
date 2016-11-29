@@ -1,0 +1,21 @@
+page-search {
+  ion-grid{
+    ion-row{
+      ion-col{
+        text-align: center;
+        height:120px;
+        .icon{
+          width: 60px;
+          height: 60px;
+        }
+      }
+    }
+  }
+  ion-list{
+    ion-item{
+      .icon{
+        font-size: 26px;
+      }
+    }
+  }
+}

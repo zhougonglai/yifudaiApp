@@ -1,0 +1,28 @@
+invester {
+  ion-item{
+    padding-left: 0 !important;
+
+    ion-note{
+      color:#000 !important;
+      font-weight: 300;
+    }
+  }
+
+  ion-grid{
+    ion-row{
+      ion-col{
+        text-align: center;
+        padding: 0;
+        h4{
+          font-weight: 300;
+          margin: 8px 0;
+          font-size: 16px;
+        }
+        p{
+          font-size: 14px;
+          margin: 8px 0;
+        }
+      }
+    }
+  }
+}

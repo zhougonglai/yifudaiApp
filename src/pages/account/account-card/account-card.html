@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <!--<ion-buttons left>-->
+      <!--<button ion-button icon-only (click)="dismiss()">-->
+        <!--<ion-icon name="arrow-back"></ion-icon>-->
+      <!--</button>-->
+    <!--</ion-buttons>-->
+    <ion-title>我的银行卡</ion-title>
+    <ion-buttons right>
+      <button ion-button (click)="addCard()">
+        添加银行卡
+        <svg class="icon" aria-hidden="true" item-left>
+          <use xlink:href="#icon-bankcard"></use>
+        </svg>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-card (click)="presentActionSheet()">
+    <ion-item color="primary">
+      <ion-icon item-left>
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-guangdayinhang"></use>
+        </svg>
+      </ion-icon>
+      中国光大银行
+      <svg class="icon" aria-hidden="true" item-right>
+        <use xlink:href="#icon-anquandunpai1"></use>
+      </svg>
+      <ion-note item-right class="light">借记卡</ion-note>
+    </ion-item>
+    <ion-item color="primary">
+      <ion-row>
+        <ion-col width-25>****</ion-col>
+        <ion-col width-25>****</ion-col>
+        <ion-col width-25>****</ion-col>
+        <ion-col width-25>6380</ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-item color="primary">
+      <ion-icon item-left>
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-gongshangyinhang"></use>
+        </svg>
+      </ion-icon>
+      中国工商银行
+      <ion-note item-right class="light">借记卡</ion-note>
+    </ion-item>
+    <ion-item color="primary">
+      <ion-row>
+        <ion-col width-25>****</ion-col>
+        <ion-col width-25>****</ion-col>
+        <ion-col width-25>****</ion-col>
+        <ion-col width-25>7390</ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-item color="primary">
+      <ion-icon item-left>
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-nongyeyinxing1"></use>
+        </svg>
+      </ion-icon>
+      中国农业银行
+      <ion-note item-right class="light">借记卡</ion-note>
+    </ion-item>
+    <ion-item color="primary">
+      <ion-row>
+        <ion-col width-25>****</ion-col>
+        <ion-col width-25>****</ion-col>
+        <ion-col width-25>****</ion-col>
+        <ion-col width-25>1480</ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-item color="primary">
+      <ion-icon item-left>
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-zhaoshangyinhang"></use>
+        </svg>
+      </ion-icon>
+      中国招商银行
+      <ion-note item-right class="light">借记卡</ion-note>
+    </ion-item>
+    <ion-item color="primary">
+      <ion-row>
+        <ion-col width-25>****</ion-col>
+        <ion-col width-25>****</ion-col>
+        <ion-col width-25>****</ion-col>
+        <ion-col width-25>9480</ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-card>
+</ion-content>

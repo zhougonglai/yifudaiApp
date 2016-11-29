@@ -1,0 +1,34 @@
+<ion-card *ngFor="let invest of userInvest" (click)="openDetail(invest)">
+  <ion-item>
+    {{invest.title}}
+    <ion-icon [name]="invest.isDone?'checkmark-circle-outline':'radio-button-on'" [color]="invest.isDone?'primary':'secondary'" item-right></ion-icon>
+  </ion-item>
+  <ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col width-50>
+          <h2>投资金额</h2>
+          <p>{{invest.money}}</p>
+        </ion-col>
+        <ion-col width-50>
+          <h2>红包金额</h2>
+          <p>{{invest.coupon}}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col width-50>
+          <h2>年利率</h2>
+          <p>{{invest.rate}}%</p>
+        </ion-col>
+        <ion-col width-50>
+          <h2>预期收益</h2>
+          <p>{{invest.earnings}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <h3 [hidden]="invest.isDone">
+      近期收益时间:
+      <span class="pull-right">{{invest.recent}}</span>
+    </h3>
+  </ion-card-content>
+</ion-card>

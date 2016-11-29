@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>主页</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-slides [options]="slides">
+    <ion-slide *ngFor="let item of slide">
+      <img [src]="item">
+    </ion-slide>
+  </ion-slides>
+
+  <ion-grid>
+    <ion-row  class="row">
+      <ion-col width-25 (click)="goToMap()">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-growth"></use>
+        </svg>
+        <p>指引</p>
+      </ion-col>
+      <ion-col width-25 (click)="goToPaper()">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-rating"></use>
+        </svg>
+        <p>活动</p>
+      </ion-col>
+      <ion-col width-25 (click)="openBrowser()">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-stats"></use>
+        </svg>
+        <p>邀请</p>
+      </ion-col>
+      <ion-col width-25>
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-keyword"></use>
+        </svg>
+        <p>保障</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <button ion-button clear small>
+    <ion-icon name="podium"></ion-icon>
+    散标投资
+  </button>
+  <invest-item [invests]="[invests[0]]"></invest-item>
+
+  <button ion-button clear small>
+    <ion-icon name="cart"></ion-icon>
+    消费金融
+  </button>
+  <invest-item [invests]="[invests[1]]"></invest-item>
+
+  <button ion-button clear small>
+    <ion-icon name="repeat"></ion-icon>
+    债券转让
+  </button>
+  <invest-item [invests]="[invests[2]]"></invest-item>
+</ion-content>
