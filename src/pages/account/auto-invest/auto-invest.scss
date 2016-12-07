@@ -1,0 +1,29 @@
+page-auto-invest {
+  ion-card{
+    ion-card-content{
+
+      ion-grid{
+        ion-row{
+          ion-col{
+            text-align: center;
+            &:first-of-type{
+              border-right: 1px solid #eee;
+            }
+          }
+          &:first-of-type{
+            border-bottom: 1px solid #eee;
+          }
+
+        }
+      }
+    }
+
+    h3{
+      padding:8px 16px;
+      border-radius: 50px;
+      background-color: #eee;
+      ion-icon{
+      }
+    }
+  }
+}

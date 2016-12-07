@@ -20,34 +20,18 @@ export class MyApp {
       Splashscreen.hide();
     });
 
+    platform.resume.subscribe(()=>{
+      this.userData.presentAlert({
+        title:"resume",
+        subTitle:"拉回",
+        buttons:["确定"]
+      });
+    });
+
     events.subscribe("user:logError",([message]) =>{
       this.userData.toastShow(message);
     });
 
-    events.subscribe("exit",()=>{
-      storage.set("exit","exit");
-    });
 
-    events.subscribe("exitApp",()=>{
-      storage.set("exitApp","exitApp");
-    });
-
-    storage.get("exitApp").then(val =>{
-      if (val){
-        userData.presentAlert({
-          title:"exitApp",
-          buttons:["确定"]
-        });
-      }
-    });
-
-    storage.get("exit").then(val =>{
-      if (val){
-        userData.presentAlert({
-          title:"exit",
-          buttons:["确定"]
-        });
-      }
-    });
   }
 }

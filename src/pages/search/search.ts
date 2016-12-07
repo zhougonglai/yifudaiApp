@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import {IndustryTrendsPage} from "./industry-trends/industry-trends";
+import {CompanyNewsPage} from "./company-news/company-news";
+import {MediaNiewPage} from "./media-niew/media-niew";
 
-/*
-  Generated class for the Search page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-search',
   templateUrl: 'search.html'
@@ -19,4 +17,15 @@ export class SearchPage {
     console.log('Hello SearchPage Page');
   }
 
+  goToIndustryTrendsPage(){
+    this.navCtrl.push(IndustryTrendsPage);
+  }
+
+  goToCompanyNewsPage(){
+    this.navCtrl.push(CompanyNewsPage);
+  }
+
+  goToMediaNiewPage(){
+    this.navCtrl.push(MediaNiewPage);
+  }
 }

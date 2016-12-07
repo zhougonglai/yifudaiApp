@@ -22,10 +22,96 @@ page-user-invest-detail {
             height: 60%;
             ion-row{
               height: 100%;
-
-              ion-col:50%;
             }
           }
+        }
+      }
+    }
+  }
+
+  div.container{
+    height: 120px;
+    width: 90%;
+    position: relative;
+    padding-left: 3%;
+    ion-row{
+      width: 100vw;
+      ion-col{
+        border-radius: 0 0 20px 20px;
+        padding:8px 0;
+        font-size: 16px;
+        transition: all 1.5s;
+      }
+    }
+  }
+  div.progress-container{
+    border-top: 1px solid #eee;
+    height:calc(100% - 170px);
+    margin-top: -1px;
+  }
+
+  div.progress{
+    width: 100%;
+    height: 4px;
+    background-color:rgba(56, 126, 245,.5);
+    position: absolute;
+    bottom:50%;
+    transition:all 1.5s;
+
+    .existed{
+      height: 100%;
+      background-color:rgb(56, 126, 245);
+      transition:all 1.5s;
+    }
+
+    .active{
+      position: absolute;
+      width:20px;
+      transition:all 1.5s;
+      height:20px;
+      top: -8px;
+      //background-color:rgb(56, 126, 245);
+      //border-radius: 50px;
+      ion-badge{
+        height:100%;
+        width: 100%;
+        padding: 0;
+      }
+      ion-icon{
+        border-radius: 50%;
+        text-align: center;
+        z-index: 9999;
+        line-height: 20px;
+      }
+
+      .after{
+        content: '';
+        transition:all 1.5s;
+        position: absolute;
+        width: 2px;
+        height:0;
+        bottom: 0;
+        left: 4px;
+      }
+
+      .label{
+        transition:all 1.5s;
+        position: relative;
+        width: 100px;
+        bottom:40px;
+        font-size: 14px;
+        background: rgba(0,0,0,0);
+      }
+
+      &.index{
+       .after{
+         transition:all 1.5s;
+         height: 44px;
+       }
+
+        .label{
+          transition:all 1.5s;
+          bottom:60px;
         }
       }
     }

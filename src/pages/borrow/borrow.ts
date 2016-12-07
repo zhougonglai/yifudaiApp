@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import {BorrowStepPage} from "./borrow-step/borrow-step";
 
-/*
-  Generated class for the Borrow page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-borrow',
   templateUrl: 'borrow.html'
@@ -17,6 +13,10 @@ export class BorrowPage {
 
   ionViewDidLoad() {
     console.log('Hello BorrowPage Page');
+  }
+
+  borrowStep(){
+    this.navCtrl.push(BorrowStepPage);
   }
 
 }

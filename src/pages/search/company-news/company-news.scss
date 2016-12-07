@@ -1,0 +1,11 @@
+page-company-news {
+  ion-item{
+    h2{
+      text-overflow: ellipsis;
+      overflow: inherit;
+    }
+    p{
+      white-space: normal;
+    }
+  }
+}

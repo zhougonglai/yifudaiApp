@@ -9,6 +9,7 @@ login {
   }
   p{
     color: #8f8f8f;
+    font-size: 14px;
   }
   ion-grid{
     padding-top: 18px;
@@ -33,7 +34,8 @@ login {
             content:'社区账号登录';
             width:100%;
             position: absolute;
-            top:-12px;
+            font-size:16px;
+            top:-10px;
             left:0;
             color:#2196f3;
         }

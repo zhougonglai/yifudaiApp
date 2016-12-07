@@ -47,7 +47,7 @@
               <p>{{ user?.card|masks:privacy}}</p>
             </ion-item>
           </ion-col>
-          <ion-col width-50>
+          <ion-col width-50 (click)="goToAccountEarningsPage()">
             <ion-item>
               <svg class="icon" aria-hidden="true" item-left>
                 <use xlink:href="#icon-bar-chart"></use>
@@ -56,7 +56,7 @@
               <p>+{{ user?.earnings|number:"1.2-2"|masks:privacy}}</p>
             </ion-item>
           </ion-col>
-          <ion-col width-50>
+          <ion-col width-50 (click)="goToAccountInvite()">
             <ion-item>
               <svg class="icon" aria-hidden="true" item-left>
                 <use xlink:href="#icon-stats"></use>
@@ -97,19 +97,19 @@
           投资管理
         </ion-card-title>
         <ion-row class="user-setting" wrap>
-          <ion-col width-25>
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-update"></use>
-            </svg>
-            <p>交易记录</p>
-          </ion-col>
+          <!--<ion-col width-25>-->
+            <!--<svg class="icon" aria-hidden="true">-->
+              <!--<use xlink:href="#icon-update"></use>-->
+            <!--</svg>-->
+            <!--<p>交易记录</p>-->
+          <!--</ion-col>-->
           <ion-col width-25 (click)="goToAccountInvest()">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-browser-3"></use>
             </svg>
             <p>我的投资</p>
           </ion-col>
-          <ion-col width-25>
+          <ion-col width-25 (click)="goToAutoInvest()">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-speedometer"></use>
             </svg>

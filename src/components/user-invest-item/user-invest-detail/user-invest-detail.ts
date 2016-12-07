@@ -10,6 +10,7 @@ export class UserInvestDetailPage {
   invest:UserInvest;
   investItem:InvestItem;
   slides:{};
+  active:number = 0;
 
   @ViewChild('mySlider') slider: Slides;
 
@@ -26,12 +27,21 @@ export class UserInvestDetailPage {
     });
   }
 
+  getActive(index){
+    this.active = index;
+    this.slider.slideTo(this.active,1500);
+  }
+
   ionViewDidLoad() {
     console.log(this.invest);
   }
 
   ionViewDidEnter(){
-    setTimeout(this.slider.slideTo(this.list.indexOf(false),1500),500);
+    this.active = this.list.indexOf(false);
+    setTimeout(this.slider.slideTo(this.active,1500),500);
+  }
+  onSlideChanged(){
+    this.active = this.slider.getActiveIndex();
   }
 
 }

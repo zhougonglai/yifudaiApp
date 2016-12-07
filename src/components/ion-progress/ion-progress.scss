@@ -34,7 +34,7 @@ ion-progress {
 
       .label{
         position: relative;
-        width: 100px;
+        min-width: 100px;
         bottom: 33px;
         font-size: 14px;
         background: rgba(0,0,0,0);

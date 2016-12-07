@@ -27,6 +27,7 @@ import { UserData } from "../providers/user-data";
 
 // pipe
 import {Masks} from "../pipes/masks";
+
 import {AccountCardPage} from "../pages/account/account-card/account-card";
 import {AddCardPage} from "../pages/account/account-card/add-card/add-card";
 import {AcountUserPage} from "../pages/account/acount-user/acount-user";
@@ -35,6 +36,17 @@ import {BanlanceDetailPage} from "../pages/account/account-balance/banlance-deta
 import {AccountInvestPage} from "../pages/account/account-invest/account-invest";
 import {UserInvestItemComponent} from "../components/user-invest-item/user-invest-item";
 import {UserInvestDetailPage} from "../components/user-invest-item/user-invest-detail/user-invest-detail";
+import {AutoInvestPage} from "../pages/account/auto-invest/auto-invest";
+import {BorrowStepPage} from "../pages/borrow/borrow-step/borrow-step";
+import {IndustryTrendsPage} from "../pages/search/industry-trends/industry-trends";
+import {CompanyNewsPage} from "../pages/search/company-news/company-news";
+import {MediaNiewPage} from "../pages/search/media-niew/media-niew";
+import {AccountEarningsPage} from "../pages/account/account-earnings/account-earnings";
+
+
+import "chart.js";
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+import {AccountInvitePage} from "../pages/account/account-invite/account-invite";
 
 
 
@@ -63,9 +75,17 @@ import {UserInvestDetailPage} from "../components/user-invest-item/user-invest-d
     AccountBalancePage,
     AddCardPage,
     AccountInvestPage,
+    AccountInvitePage,
+    AccountEarningsPage,
     BanlanceDetailPage,
     UserInvestItemComponent,
     UserInvestDetailPage,
+    AutoInvestPage,
+    BorrowStepPage,
+    CompanyNewsPage,
+    IndustryTrendsPage,
+    MediaNiewPage,
+
 
     Masks
   ],
@@ -76,7 +96,7 @@ import {UserInvestDetailPage} from "../components/user-invest-item/user-invest-d
           backButtonText:"返回"
         }
       }
-    }),FormsModule
+    }),FormsModule,ChartsModule
   ],
   bootstrap: [ IonicApp ],
   entryComponents: [
@@ -100,9 +120,17 @@ import {UserInvestDetailPage} from "../components/user-invest-item/user-invest-d
     AccountBalancePage,
     AddCardPage,
     AccountInvestPage,
+    AccountInvitePage,
+    AutoInvestPage,
+    AccountEarningsPage,
     BanlanceDetailPage,
+    BorrowStepPage,
+    CompanyNewsPage,
     UserInvestItemComponent,
-    UserInvestDetailPage
+    UserInvestDetailPage,
+    MediaNiewPage,
+    IndustryTrendsPage
+
   ],
   providers: [ Storage, UserData]
 })

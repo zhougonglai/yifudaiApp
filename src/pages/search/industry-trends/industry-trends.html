@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>行业动态</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let item of list">
+      <ion-thumbnail *ngIf="item.type == 1" item-left>
+        <img [src]="item.img"/>
+      </ion-thumbnail>
+      <h2>{{item.title}}</h2>
+      <p>{{item.note}}</p>
+      <ion-note>发布时间:{{item.date}}</ion-note>
+    </ion-item>
+  </ion-list>
+</ion-content>

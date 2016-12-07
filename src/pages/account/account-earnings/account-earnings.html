@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>累计收益</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+    <ion-list>
+      <ion-item>
+        <p>累计收益(元)</p>
+        73160.02
+      </ion-item>
+    </ion-list>
+    <canvas baseChart
+            [data]="doughnutChartData"
+            [labels]="doughnutChartLabels"
+            [chartType]="doughnutChartType"
+    ></canvas>
+  <ion-list>
+    <ion-item *ngFor="let label of doughnutChartLabels;let i = index">
+      {{label}}
+      <ion-note item-right>{{doughnutChartData[i]}}元</ion-note>
+    </ion-item>
+  </ion-list>
+</ion-content>

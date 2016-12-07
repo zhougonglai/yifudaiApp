@@ -4,8 +4,32 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <div style="border-top: 1px solid #eee;">
-    <ion-slides #mySlider [options]="slides">
+  <div class="container">
+    <ion-row center>
+      <ion-col text-center offset-25 width-50 [hidden]="active == -1" [class]="invest.investList[active]?.isDone?'bg-primary':'bg-secondary'">
+        本期还款:{{invest.investList[active]?.rateMoney}}元
+      </ion-col>
+      <ion-col text-center offset-25 width-50 [hidden]="active != -1" class="bg-primary">
+        已还款
+      </ion-col>
+    </ion-row>
+    <!--{{investItem.rateMoney}}元-->
+    <div class="progress">
+      <div class="existed" [style.width.%]="(active)*100/(invest.investList.length-1)">
+
+      </div>
+
+      <div class="active" (click)="getActive(i)" [class.index]="i == active" [style.left.%]="(i)*100/(invest.investList.length - 1)" *ngFor="let investItem of invest.investList;let i = index;">
+        <ion-badge [color]="investItem.isDone?'primary':'secondary'">
+          <ion-icon [name]="investItem.isDone?'checkmark':'radio-button-off'" color="light"></ion-icon>
+        </ion-badge>
+        <!--<div class="label" [style.right.px]="i*50/invest.investList.length" [hidden]="!(i == active)">-->
+        <!--<div class="after" [class.bg-primary]="investItem.isDone" [class.bg-secondary]="!investItem.isDone"></div>-->
+      </div>
+    </div>
+  </div>
+  <div class="progress-container">
+    <ion-slides #mySlider [options]="slides" (ionDidChange)="onSlideChanged()">
       <ion-slide class="card-md" *ngFor="let investItem of invest.investList;let i = index;">
           <ion-card-header>
             第 <span>{{ i + 1 }}</span> 期
@@ -28,7 +52,8 @@
             <ion-note item-right class="primary">{{investItem.rateMoney}} 元</ion-note>
           </ion-item>
           <ion-item>
-            还款日:{{investItem.time}}
+            还款日:
+            <ion-note item-right class="primary">{{investItem.time}}</ion-note>
           </ion-item>
       </ion-slide>
     </ion-slides>

@@ -1,0 +1,11 @@
+page-industry-trends {
+  ion-item{
+    h2{
+      text-overflow: ellipsis;
+      overflow: inherit;
+    }
+    p{
+      white-space: normal;
+    }
+  }
+}

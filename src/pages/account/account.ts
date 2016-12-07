@@ -10,6 +10,9 @@ import {AccountCardPage} from "./account-card/account-card";
 import {AcountUserPage} from "./acount-user/acount-user";
 import {AccountBalancePage} from "./account-balance/account-balance";
 import {AccountInvestPage} from "./account-invest/account-invest";
+import {AutoInvestPage} from "./auto-invest/auto-invest";
+import {AccountEarningsPage} from "./account-earnings/account-earnings";
+import {AccountInvitePage} from "./account-invite/account-invite";
 
 
 @Component({
@@ -68,6 +71,18 @@ export class AccountPage{
 
   goToAccountInvest(){
     this.navCtrl.push(AccountInvestPage);
+  }
+
+  goToAccountInvite(){
+    this.navCtrl.push(AccountInvitePage);
+  }
+
+  goToAutoInvest(){
+    this.navCtrl.push(AutoInvestPage);
+  }
+
+  goToAccountEarningsPage(){
+    this.navCtrl.push(AccountEarningsPage);
   }
 
   login(){
