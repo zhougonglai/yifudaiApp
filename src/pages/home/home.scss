@@ -20,6 +20,7 @@ page-home {
 
   ion-grid{
     padding:0;
+    background-color:#fff;
     ion-row{
       &.row{
         height: 25vw;
@@ -44,5 +45,12 @@ page-home {
 
       }
     }
+  }
+
+  ion-content{
+    background-color:$dirty !important;
+  }
+  ion-list{
+    margin-bottom: 0 !important;
   }
 }

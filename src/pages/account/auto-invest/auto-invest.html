@@ -13,11 +13,13 @@
 </ion-header>
 <ion-content>
   <ion-card>
-    <ion-card-content>
-      <h3>
+    <ion-item>
+      <ion-label>
         账户保留金额: 0.00
-        <ion-icon name="radio-button-off" color="danger" class="pull-right"></ion-icon>
-      </h3>
+      </ion-label>
+      <ion-toggle cheched="false"></ion-toggle>
+    </ion-item>
+    <ion-card-content>
       <ion-grid>
         <ion-row>
           <ion-col width-50>
@@ -44,11 +46,13 @@
   </ion-card>
 
   <ion-card>
-    <ion-card-content>
-      <h3>
+    <ion-item>
+      <ion-label>
         账户保留金额: 0.00
-        <ion-icon name="radio-button-on" color="secondary" class="pull-right"></ion-icon>
-      </h3>
+      </ion-label>
+      <ion-toggle checked="true"></ion-toggle>
+    </ion-item>
+    <ion-card-content>
       <ion-grid>
         <ion-row>
           <ion-col width-50>

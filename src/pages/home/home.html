@@ -1,37 +1,40 @@
-<ion-header>
-  <ion-navbar color="primary">
-    <ion-title>主页</ion-title>
-  </ion-navbar>
-</ion-header>
-
+<!--<ion-header>-->
+  <!--<ion-navbar color="primary">-->
+    <!--<ion-title>主页</ion-title>-->
+  <!--</ion-navbar>-->
+<!--</ion-header>-->
 <ion-content>
   <ion-slides [options]="slides">
     <ion-slide *ngFor="let item of slide">
-      <img [src]="item">
+      <ion-img [src]="item"></ion-img>
     </ion-slide>
   </ion-slides>
 
   <ion-grid>
     <ion-row  class="row">
-      <ion-col width-25 (click)="goToMap()">
+      <!--(click)="goToMap()"-->
+      <ion-col width-25>
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-growth"></use>
         </svg>
         <p>指引</p>
       </ion-col>
-      <ion-col width-25 (click)="goToPaper()">
+      <!--(click)="openBrowser()"-->
+      <ion-col width-25>
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-rating"></use>
         </svg>
         <p>活动</p>
       </ion-col>
+      <!--(click)="openTheMeBrowser()"-->
       <ion-col width-25>
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-stats"></use>
         </svg>
         <p>邀请</p>
       </ion-col>
-      <ion-col width-25 (click)="openBrowser()">
+      <!--(click)="openSafariBrowser()"-->
+      <ion-col width-25>
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-keyword"></use>
         </svg>
@@ -40,21 +43,30 @@
     </ion-row>
   </ion-grid>
 
-  <button ion-button clear small>
-    <ion-icon name="podium"></ion-icon>
-    散标投资
-  </button>
-  <invest-item [invests]="[invests[0]]"></invest-item>
+  <ion-list no-lines>
+    <button ion-button clear small>
+      <ion-icon name="podium"></ion-icon>
+      散标投资
+    </button>
+  </ion-list>
+  <app-loading *ngIf="!isDone"></app-loading>
+  <invest-item [invests]="[sanbiao]" *ngIf="isDone&&sanbiao"></invest-item>
 
-  <button ion-button clear small>
-    <ion-icon name="cart"></ion-icon>
-    消费金融
-  </button>
-  <invest-item [invests]="[invests[1]]"></invest-item>
+  <ion-list no-lines>
+    <button ion-button clear small>
+      <ion-icon name="cart"></ion-icon>
+      消费金融
+    </button>
+  </ion-list>
+  <app-loading *ngIf="!isDone"></app-loading>
+  <invest-item [invests]="[xiaofei]" *ngIf="isDone&&xiaofei"></invest-item>
 
-  <button ion-button clear small>
-    <ion-icon name="repeat"></ion-icon>
-    债券转让
-  </button>
-  <invest-item [invests]="[invests[2]]"></invest-item>
+  <ion-list no-lines>
+    <button ion-button clear small>
+      <ion-icon name="repeat"></ion-icon>
+      债权转让
+    </button>
+  </ion-list>
+  <app-loading *ngIf="!isDone"></app-loading>
+  <invest-item [invests]="[zhuanrang]" *ngIf="isDone&&zhuanrang"></invest-item>
 </ion-content>

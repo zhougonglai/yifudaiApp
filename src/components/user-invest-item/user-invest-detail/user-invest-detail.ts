@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {NavParams, Slides} from 'ionic-angular';
-import { UserInvest,InvestItem } from "../../../model";
+import { UserInvest,InvestItem } from "../../../providers/model";
 
 @Component({
   selector: 'page-user-invest-detail',

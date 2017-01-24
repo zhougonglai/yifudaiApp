@@ -16,6 +16,7 @@
   <allow-navigation href="http://*/*"/>
   <allow-navigation href="https://*/*"/>
   <allow-navigation href="data:*"/>
+  <allow-navigation href="http://192.168.0.126:8100"/>
   <platform name="android">
     <allow-intent href="market:*"/>
     <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png"/>

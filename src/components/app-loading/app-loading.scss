@@ -1,0 +1,98 @@
+app-loading {
+  ion-card{
+  }
+  ion-card-content{
+    position: relative;
+    height: 200px;
+    background-color:$primary;
+  }
+
+  .warp{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-rigth: -50%;
+    transform: translate(-50%, -50%);
+    color:$light;
+    text-align: center;
+  }
+
+  .box1,
+  .box2,
+  .box3 {
+    display: inline-block;
+    margin: 5px;
+    height: 20px;
+    width: 20px;
+    background: #fff;
+    box-shadow: 2px 2px 0 0 $primary;
+    /*   animation */
+    animation: loading, shadow;
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+
+  .box1 {
+    animation-delay: 1s;
+  }
+
+  .box2 {
+    animation-delay: 1.3s;
+  }
+
+  .box3 {
+    animation-delay: 1.6s;
+  }
+
+  @keyframes loading {
+    0%,
+    100% {
+      position: relative;
+      top: 0;
+      left: 0;
+    }
+    30% {
+      left: -5px;
+      top: -10px;
+    }
+    55% {
+      top: 0;
+      left: 0;
+    }
+  }
+  @-webkit-keyframes loading {
+    0%,
+    100% {
+      position: relative;
+      top: 0;
+      left: 0;
+    }
+    30% {
+      left: -5px;
+      top: -10px;
+    }
+    55% {
+      top: 0;
+      left: 0;
+    }
+  }
+
+  @-webkit-keyframes shadow {
+    30% {
+      box-shadow: 7px 12px 0 0 $primary;
+    }
+    55% {
+      box-shadow: 2px 2px 0 0 $primary;
+    }
+  }
+
+  @keyframes shadow {
+    30% {
+      box-shadow: 7px 12px 0 0 $primary;
+    }
+    55% {
+      box-shadow: 2px 2px 0 0 $primary;
+    }
+  }
+}

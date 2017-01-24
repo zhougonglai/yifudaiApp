@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 
 import { HomePage } from '../home/home';
-import { InvestPage } from "../invest/invest";
+// import { InvestPage } from "../invest/invest";
 import { AccountPage } from "../account/account";
 import { BorrowPage } from "../borrow/borrow";
-import { SearchPage } from "../search/search";
+// import { SearchPage } from "../search/search";
+import {Tabs,Events} from "ionic-angular";
 
 @Component({
   templateUrl: 'tabs.html'
@@ -24,18 +25,28 @@ export class TabsPage {
     tabsHideOnSubPages?:boolean
   }];
 
-  constructor() {
+  @ViewChild("tabs") tabs:Tabs;
+
+  constructor(private event:Events) {
+    // {
+    //   root:InvestPage,
+    //     title:"投资",
+    //   icon:"stats"
+    // },
+
+    // {
+    //   root:SearchPage,
+    //     title:"探索",
+    //   icon:"apps"
+    // }
+
     this.rootPage = [
       {
         root:HomePage,
         title:"首页",
         icon:"home"
       },
-      {
-        root:InvestPage,
-        title:"投资",
-        icon:"stats"
-      },
+
       {
         root:AccountPage,
         title:"我的",
@@ -45,13 +56,10 @@ export class TabsPage {
         root:BorrowPage,
         title:"借款",
         icon:"cash"
-      },
-      {
-        root:SearchPage,
-        title:"探索",
-        icon:"apps"
       }
     ];
-
+    event.subscribe("invest:done",()=>{
+      this.tabs.select(2);
+    });
   }
 }

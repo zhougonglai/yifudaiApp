@@ -12,29 +12,31 @@
   <ion-card [hidden]="!(step == 1)">
     <ion-item>
       <ion-label>所属银行</ion-label>
-      <ion-select [(ngModel)]="banks" cancelText="取消" okText="确定">
-        <ion-option value="1">光大</ion-option>
-        <ion-option value="2">招商</ion-option>
-        <ion-option value="3">农业</ion-option>
-        <ion-option value="4">工商</ion-option>
-        <ion-option value="5">华夏</ion-option>
-        <ion-option value="6">建设</ion-option>
+      <ion-select [(ngModel)]="bank" cancelText="取消" okText="确定">
+        <ion-option *ngFor="let bank of banks" [value]="bank">{{bank.name}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>开户城市</ion-label>
-      <ion-select [(ngModel)]="citys" cancelText="取消" okText="确定">
-        <ion-option value="1">北京</ion-option>
-        <ion-option value="2">湖北</ion-option>
-        <ion-option value="3">上海</ion-option>
-        <ion-option value="4">天津</ion-option>
+      <ion-select [(ngModel)]="city" cancelText="取消" okText="确定" (ionChange)="cityChange(city)">
+        <ion-option *ngFor="let city of citys" [value]="city">{{city.name}}</ion-option>
       </ion-select>
     </ion-item>
-    <ion-item style="">
-      <ion-input type="tel" placeholder="银行卡号"></ion-input>
+    <ion-item>
+      <ion-label>开户市区</ion-label>
+      <ion-select [(ngModel)]="province" cancelText="取消" okText="确定">
+        <ion-option *ngFor="let province of provinces" [value]="province">{{province.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="cardno" type="tel" placeholder="银行卡号"></ion-input>
       <svg class="icon" aria-hidden="true" item-right>
         <use xlink:href="#icon-bankcard"></use>
       </svg>
+    </ion-item>
+    <ion-item>
+      <ion-input type="tel" placeholder="您本人银行预留手机号" [(ngModel)]="phone"></ion-input>
+      <ion-icon name="phone-portrait" item-right></ion-icon>
     </ion-item>
     <div padding>
       <button ion-button block (click)="nextStep()">下一步</button>
@@ -43,15 +45,17 @@
   <div>
     <ion-card [hidden]="!(step == 2)">
       <ion-item>
-        <ion-input type="tel" placeholder="您本人银行预留手机号"></ion-input>
+        <ion-input type="tel" placeholder="您本人银行预留手机号" disabled="true" [ngModel]="phone"></ion-input>
         <ion-icon name="phone-portrait" item-right></ion-icon>
       </ion-item>
       <ion-item>
-        <ion-input type="tel" placeholder="验证码"></ion-input>
-        <ion-note item-right class="code">获取验证码</ion-note>
+        <ion-input type="tel" placeholder="验证码" [(ngModel)]="code"></ion-input>
+        <button item-right ion-button round outline [color]="verycode.status?'light':'dark'" type="button" [disabled]="verycode.status" (click)="sendcode()">
+          {{verycode.status?verycode.timers:verycode.text}}
+        </button>
       </ion-item>
       <div padding>
-        <button ion-button block>提交</button>
+        <button ion-button block (click)="bindCardServe()">认证</button>
       </div>
     </ion-card>
   </div>

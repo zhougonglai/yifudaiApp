@@ -1,5 +1,10 @@
 page-auto-invest {
   ion-card{
+    position:relative;
+    ion-fab{
+      right:0;
+      top:0;
+    }
     ion-card-content{
 
       ion-grid{

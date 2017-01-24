@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { UserInvestDetailPage} from "./user-invest-detail/user-invest-detail";
-import { UserInvest} from "../../model";
+import { UserInvest} from "../../providers/model";
 
 @Component({
   selector: 'user-invest-item',

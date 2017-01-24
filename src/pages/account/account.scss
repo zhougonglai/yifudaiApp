@@ -32,9 +32,30 @@ page-account {
     }
   }
 
+  ion-content{
+    background-color: $light !important;
+  }
+
   .user-setting{
     ion-col{
       text-align: center;
+    }
+
+    &.certification{
+      ion-col{
+        margin:calc(25% / 6);
+        border-radius: 15px;
+        &.allow{
+          border:1px solid;
+          border-color: $primary;
+        }
+        &.rejected{
+          border:1px solid;
+          border-color: $danger;
+        }
+        &:last-child{
+        }
+      }
     }
   }
 

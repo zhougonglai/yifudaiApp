@@ -1,15 +1,48 @@
 <ion-card *ngFor="let invest of invests;let i = $index" (click)="goToDetail(invest)">
   <ion-card-header>
-    {{invest.title}}
-    <ion-chip [ngSwitch]="invest.mark">
-      <ion-icon *ngSwitchCase="'1'">信</ion-icon>
-      <ion-icon *ngSwitchCase="'2'">担</ion-icon>
-      <ion-icon *ngSwitchCase="'3'">押</ion-icon>
-      <ion-icon *ngSwitchCase="'4'">实</ion-icon>
-      <ion-icon *ngSwitchCase="'5'">保</ion-icon>
-      <ion-icon *ngSwitchCase="'6'">转</ion-icon>
+    {{invest?.title}}
+
+    <ion-chip *ngIf="invest.borrowmark.mark1 == 1">
+      <ion-icon>信</ion-icon>
       <ion-label>
-        {{invest.level}}
+        {{invest?.level}}
+      </ion-label>
+    </ion-chip>
+
+    <ion-chip *ngIf="invest.borrowmark.mark2 == 1">
+      <ion-icon>担</ion-icon>
+      <ion-label>
+        {{invest?.level}}
+      </ion-label>
+    </ion-chip>
+
+    <ion-chip *ngIf="invest.borrowmark.mark3 == 1">
+      <ion-icon>抵</ion-icon>
+      <ion-label>
+        {{invest?.level}}
+      </ion-label>
+    </ion-chip>
+
+
+    <ion-chip *ngIf="invest.borrowmark.mark4 == 1">
+      <ion-icon>实</ion-icon>
+      <ion-label>
+        {{invest?.level}}
+      </ion-label>
+    </ion-chip>
+
+
+    <ion-chip *ngIf="invest.borrowmark.mark5 == 1">
+      <ion-icon>保</ion-icon>
+      <ion-label>
+        {{invest?.level}}
+      </ion-label>
+    </ion-chip>
+
+    <ion-chip *ngIf="invest.borrowmark.mark6 == 1">
+      <ion-icon>流</ion-icon>
+      <ion-label>
+        {{invest?.level}}
       </ion-label>
     </ion-chip>
   </ion-card-header>
@@ -17,26 +50,32 @@
     <ion-grid>
       <ion-row wrap>
         <ion-col width-33>
-          <h2>{{invest.rate}}%</h2>
+          <h2>{{invest?.profitRate}}%</h2>
           <p>年化率</p>
         </ion-col>
         <ion-col width-33>
-          <h2>{{invest.date}}</h2>
+          <h2>{{invest?.borrowDeadline}}</h2>
           <p>投资期限</p>
         </ion-col>
         <ion-col width-33>
-          <h2>{{invest.money}}</h2>
+          <h2>{{invest?.borrowMoney}}</h2>
           <p>借款金额</p>
         </ion-col>
       </ion-row>
     </ion-grid>
-    <ion-progress [max]="invest.money" [existed]="invest.existed"></ion-progress>
+    <ion-progress [max]="invest?.borrowMoney" *ngIf="invest?.remainderMoney > 0" [existed]="(invest?.borrowMoney - invest?.remainderMoney)"></ion-progress>
   </ion-card-content>
   <ion-list no-lines>
-    <ion-item style="border-top: 1px solid #eee;">
+    <ion-item style="border-top: 1px solid #eee;" *ngIf="invest?.status == 3">
       <ion-note> 100元起投</ion-note>
       <button ion-button outline small item-right>
         立即投资
+      </button>
+    </ion-item>
+    <ion-item style="border-top: 1px solid #eee;" *ngIf="invest?.status != 3">
+      <ion-note>已完成</ion-note>
+      <button ion-button icon-only outline small color="secondary" round item-right>
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
       </button>
     </ion-item>
   </ion-list>

@@ -1,0 +1,28 @@
+backend {
+  *{
+    box-shadow:none !important;
+    color:#8f8f8f !important;
+  }
+  ion-content,
+  ion-card,
+  button,
+  ion-item{
+    background-color: transparent !important;
+  }
+  ion-list{
+    & *{
+
+    }
+  }
+
+  ion-card-header{
+    color: #ffffff !important;
+    border-bottom: 1px solid #dedede;
+  }
+
+  .close-button{
+    position: absolute;
+    width: 100%;
+    bottom: 15%;
+  }
+}

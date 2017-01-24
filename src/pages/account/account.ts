@@ -4,7 +4,7 @@ import { NavController,AlertController,Events,ToastController,ModalController} f
 import { Storage} from "@ionic/storage";
 
 import { UserData} from "../../providers/user-data";
-import { User } from "../../model";
+import { User } from "../../providers/model";
 import { LoginComponent} from "../../components/login/login";
 import {AccountCardPage} from "./account-card/account-card";
 import {AcountUserPage} from "./acount-user/acount-user";
@@ -13,6 +13,9 @@ import {AccountInvestPage} from "./account-invest/account-invest";
 import {AutoInvestPage} from "./auto-invest/auto-invest";
 import {AccountEarningsPage} from "./account-earnings/account-earnings";
 import {AccountInvitePage} from "./account-invite/account-invite";
+import {Utils} from "../../providers/utils";
+import {UserService} from "../../providers/user-service";
+import { SafariViewController} from "ionic-native";
 
 
 @Component({
@@ -27,6 +30,7 @@ export class AccountPage{
   alert:AlertController;
   userOn:boolean;
   privacy:boolean;
+  token:string;
 
   constructor(
     public navCtrl: NavController,
@@ -35,7 +39,9 @@ export class AccountPage{
     public alertCtrl:AlertController,
     public events:Events,
     public toast:ToastController,
-    public modalCtrl:ModalController
+    public modalCtrl:ModalController,
+    private util:Utils,
+    private userService:UserService
   ) {
     this.money = 10000;
     this.balance = 524;
@@ -105,13 +111,198 @@ export class AccountPage{
     });
   }
 
+  //实名认证
+  certification(){
+    if(this.user){
+      if(this.user.identityAuthentication){
+        this.util.presentAlert({
+          title:"用户已实名",
+          buttons:["确定"]
+        });
+      }else{
+        this.token = this.userData.getToken();
+        if(this.token){
+          this.util.presentAlert({
+            title:"实名认证",
+            inputs:[
+              {
+                name:"realName",
+                placeholder:"真实姓名"
+              },
+              {
+                name:"idCardNumber",
+                placeholder:"身份证号",
+                type:"tel"
+              }
+            ],
+            buttons:[
+              {
+                text:"取消",
+                role:"cancel"
+              },
+              {
+                text:"确定",
+                handler:data=>{
+                  if(data.realName && data.idCardNumber){
+                    if(data.realName.length>1 && data.idCardNumber.length == 18){
+                      this.userService.certification(this.token,data.realName,data.idCardNumber).subscribe(
+                        (data) => {
+                          if("status" in data){
+                            this.util.toastShow(data["message"]);
+                            if(data["status"] == 'success'){
+                              this.userData.getUserFormService(this.token);
+                            }
+                          }
+                        },(err) => {
+
+                        }
+                      );
+                    }else{
+                      this.util.toastShow("真实姓名或身份证号格式不对");
+                    }
+                  }
+                }
+              }
+            ]
+          });
+        }else{
+          this.userData.login();
+        }
+      }
+    }
+  }
+
+  // 设置支付密码
+  queryIsSetPayPasswordRequest(){
+    if(this.user){
+      if(this.user.queryIsSetPayPasswordRequest){
+        this.util.presentAlert({
+          title:"用户已设置支付密码",
+          buttons:["确定"]
+        });
+      }else{
+        if(this.user.identityAuthentication) {
+          this.token = this.userData.getToken();
+          if (this.token) {
+            this.userService.setPaymenyPassword(this.token).subscribe(
+              (data) => {
+                console.log(data);
+                if ("message" in data) {
+                  if (data["message"] == "SUCCESS") {
+                    data["data"] = JSON.parse(data["data"]);
+                    this.util.toastShow(data["data"]["url"]);
+                    this.openBrowser(data["data"]["url"]);
+                  } else {
+                    this.util.presentAlert({
+                      title: data["message"],
+                      buttons: ["确定"]
+                    });
+                  }
+                }
+              }, (err) => {
+
+              }
+            );
+          } else {
+            this.userData.login();
+          }
+        }else{
+          this.util.presentAlert({
+            title:"请先实名认证",
+            buttons:["确定"]
+          });
+        }
+      }
+    }
+  }
+
+  // 余额支付
+  isAuthorization(){
+   if(this.user){
+     if(this.user.isAuthorization){
+       this.util.presentAlert({
+         title:"用户已开通余额支付",
+         buttons:["确定"]
+       });
+     }else{
+       if(this.user.queryIsSetPayPasswordRequest) {
+         this.token = this.userData.getToken();
+         if (this.token) {
+           this.userService.setPaymenyPassword(this.token).subscribe(
+             (data) => {
+               console.log(data);
+               if ("message" in data) {
+                 if (data["message"] == "SUCCESS") {
+                   data["data"] = JSON.parse(data["data"]);
+                   this.util.toastShow(data["data"]["url"]);
+                   this.openBrowser(data["data"]["url"]);
+                 } else {
+                   this.util.presentAlert({
+                     title: data["message"],
+                     buttons: ["确定"]
+                   });
+                 }
+               }
+             }, (err) => {
+
+             }
+           );
+         } else {
+           this.userData.login();
+         }
+       }else{
+         this.util.presentAlert({
+           title:"请先设置支付密码",
+           buttons:["确定"]
+         });
+       }
+     }
+   }
+  }
+
+  openBrowser(url:string){
+    SafariViewController.isAvailable()
+      .then(
+        (available: boolean) => {
+          if(available){
+            SafariViewController.show({
+              url:url,
+              hidden: false,
+              animated: false,
+              transition: 'curl',
+              enterReaderModeIfAvailable: true,
+              tintColor: '#ff0000'
+            }).then((result: any) => {
+                  if(result.event === 'opened'){
+
+                  }else if(result.event === 'loaded'){
+
+                  }else if(result.event === 'closed'){
+                    this.util.presentAlert({
+                      title:"关闭浏览器",
+                      buttons:["确定"]
+                    });
+                  }
+                },(error) => {
+
+                });
+          } else {
+            // use fallback browser, example InAppBrowser
+            // this.openBrowser();
+          }
+        }
+      );
+  }
+
+  // 页面进入
   ionViewWillEnter(){
     this.userData.getStatus().then(bool =>{
       this.userOn = bool;
       if(bool){
         this.userData.getUserData()
-          .subscribe(user => {
+          .then(user => {
             this.user = <User>user;
+            console.log(this.user);
           },error =>{
             let alert = this.alertCtrl.create({
               title:"提示",
@@ -124,18 +315,6 @@ export class AccountPage{
         this.userData.login();
       }
     });
-    // this.storage.get("user").then(user =>{
-    //   console.log(user);
-    //   if(user){
-    //     this.userData.getUser().then(user =>{
-    //       this.user = user;
-    //       this.storage.set("user",user);
-    //       console.log("user on");
-    //     });
-    //   }else{
-    //     this.login();
-    //   }
-    // });
   }
 
 }

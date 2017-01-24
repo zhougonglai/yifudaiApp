@@ -23,7 +23,7 @@ import { LoginComponent} from "../components/login/login";
 //service
 import { Storage } from "@ionic/storage";
 
-import { UserData } from "../providers/user-data";
+import { UserData,Utils,UserService } from "../providers";
 
 // pipe
 import {Masks} from "../pipes/masks";
@@ -47,6 +47,8 @@ import {AccountEarningsPage} from "../pages/account/account-earnings/account-ear
 import "chart.js";
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import {AccountInvitePage} from "../pages/account/account-invite/account-invite";
+import {BackendComponent} from "../components/backend/backend";
+import {AppLoadingComponent} from "../components/app-loading/app-loading";
 
 
 
@@ -70,6 +72,7 @@ import {AccountInvitePage} from "../pages/account/account-invite/account-invite"
     InvesterComponent,
     IonProgressComponent,
     LoginComponent,
+    AppLoadingComponent,
     AccountCardPage,
     AcountUserPage,
     AccountBalancePage,
@@ -85,6 +88,7 @@ import {AccountInvitePage} from "../pages/account/account-invite/account-invite"
     CompanyNewsPage,
     IndustryTrendsPage,
     MediaNiewPage,
+    BackendComponent,
 
 
     Masks
@@ -115,6 +119,7 @@ import {AccountInvitePage} from "../pages/account/account-invite/account-invite"
     InvesterComponent,
     IonProgressComponent,
     LoginComponent,
+    AppLoadingComponent,
     AccountCardPage,
     AcountUserPage,
     AccountBalancePage,
@@ -129,9 +134,11 @@ import {AccountInvitePage} from "../pages/account/account-invite/account-invite"
     UserInvestItemComponent,
     UserInvestDetailPage,
     MediaNiewPage,
-    IndustryTrendsPage
+    IndustryTrendsPage,
+
+    BackendComponent
 
   ],
-  providers: [ Storage, UserData]
+  providers: [ Storage, UserData,Utils,UserService]
 })
 export class AppModule {}

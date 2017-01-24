@@ -1,4 +1,4 @@
-export default class InvestItem{
+export class InvestItem{
   user:string;
   time:string;
   doneTime:string;

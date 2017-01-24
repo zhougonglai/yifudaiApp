@@ -22,8 +22,8 @@
       <svg class="icon" aria-hidden="true" item-left>
         <use xlink:href="#icon-user"></use>
       </svg>
-      <h2>{{ user?.name}}</h2>
-      <p>账户总资产:{{ user?.property|number:"1.2-2"|masks:privacy}}</p>
+      <h2>{{ user?.nickName||user?.username}}</h2>
+      <p>账户总资产:{{ user?.sumMoney|number:"1.2-2"|masks:privacy}}</p>
       <ion-icon name="arrow-forward" item-right></ion-icon>
     </ion-item>
     <ion-card-content>
@@ -35,7 +35,7 @@
                 <use xlink:href="#icon-coin"></use>
               </svg>
                 余额
-                <p>{{ user?.balance|number:"1.2-2"|masks:privacy}}</p>
+                <p>{{ user?.money|number:"1.2-2"|masks:privacy}}</p>
             </ion-item>
           </ion-col>
           <ion-col width-50 (click)="goToAccountCard()">
@@ -44,7 +44,7 @@
                 <use xlink:href="#icon-bankcard"></use>
               </svg>
               我的银行卡
-              <p>{{ user?.card|masks:privacy}}</p>
+              <p>{{ user?.bankCard?.length|masks:privacy}}</p>
             </ion-item>
           </ion-col>
           <ion-col width-50 (click)="goToAccountEarningsPage()">
@@ -53,44 +53,18 @@
                 <use xlink:href="#icon-bar-chart"></use>
               </svg>
               累计收益
-              <p>+{{ user?.earnings|number:"1.2-2"|masks:privacy}}</p>
+              <p>+0</p>
             </ion-item>
           </ion-col>
           <ion-col width-50 (click)="goToAccountInvite()">
             <ion-item>
               <svg class="icon" aria-hidden="true" item-left>
-                <use xlink:href="#icon-stats"></use>
+                <use xlink:href="#icon-audience"></use>
               </svg>
               我的邀请
-              <p>{{ user?.invite|masks:privacy}}</p>
+              <p>0</p>
             </ion-item>
           </ion-col>
-
-
-          <!--<ion-col width-25>-->
-            <!--<svg class="icon" aria-hidden="true" style="color: #387ef5;">-->
-              <!--<use xlink:href="#icon-tixian"></use>-->
-            <!--</svg>-->
-            <!--<p>充值</p>-->
-          <!--</ion-col>-->
-          <!--<ion-col width-25>-->
-            <!--<svg class="icon" aria-hidden="true" style="color: #f53d3d;">-->
-              <!--<use xlink:href="#icon-chongzhi"></use>-->
-            <!--</svg>-->
-            <!--<p>提现</p>-->
-          <!--</ion-col>-->
-
-
-          <!--<ion-col width-25>-->
-            <!--<svg class="icon" aria-hidden="true">-->
-              <!--<use xlink:href="#icon-coin"></use>-->
-            <!--</svg>-->
-            <!--<p>我的资产</p>-->
-          <!--</ion-col>-->
-          <!--<ion-col width-25>-->
-
-          <!--</ion-col>-->
-
         </ion-row>
 
         <ion-card-title style="padding-left:12px;">
@@ -126,6 +100,30 @@
               <use xlink:href="#icon-cogwheel"></use>
             </svg>
             <p>我的设置</p>
+          </ion-col>
+        </ion-row>
+
+        <ion-card-title style="padding-left:12px;">
+          账户认证
+        </ion-card-title>
+        <ion-row class="user-setting certification" wrap>
+          <ion-col width-25 [ngClass]="{true:'allow',false:'rejected'}[user?.identityAuthentication]" (click)="certification()">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-stats"></use>
+            </svg>
+            <p>实名认证</p>
+          </ion-col>
+          <ion-col width-25 [ngClass]="{true:'allow',false:'rejected'}[user?.queryIsSetPayPasswordRequest]" (click)="queryIsSetPayPasswordRequest()">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-keyword"></use>
+            </svg>
+            <p>支付密码</p>
+          </ion-col>
+          <ion-col width-25 [ngClass]="{true: 'allow',false:'rejected'}[user?.isAuthorization]" (click)="isAuthorization()">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-buying"></use>
+            </svg>
+            <p>余额支付</p>
           </ion-col>
         </ion-row>
       </ion-grid>

@@ -2,7 +2,7 @@ import { Component,Input } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
 
-import { Invest } from "../../model";
+import { Invest } from "../../providers/model";
 
 import { InvestDetailComponent } from "../invest-detail/invest-detail";
 
@@ -19,8 +19,9 @@ export class InvestItemComponent {
   invest:Invest;
 
   constructor(public nav:NavController) {
-
   }
+
+
 
   goToDetail(invest:Invest){
         this.nav.push(InvestDetailComponent,{

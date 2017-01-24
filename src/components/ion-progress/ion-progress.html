@@ -1,11 +1,11 @@
 <div class="container">
   <div class="progress">
-    <div class="existed" [style.width.%]="(_existed*100)/_max">
+    <div class="existed" [style.width.%]="((_existed*100)||0)/_max">
 
     </div>
-    <div class="active" [style.left.%]="(_existed*100)/_max">
-      <div class="label" [style.left.px]="-(_existed*100)/_max">
-        已投资 {{(_existed*100)/_max|number:"1.2-2"}}%
+    <div class="active" [style.left.%]="((_existed*100)||0)/_max">
+      <div class="label" [style.left.px]="-((_existed*100)||0)/_max">
+        已投资 {{((_existed*100)||0)/_max|number:"1.0-2"}}%
       </div>
     </div>
   </div>

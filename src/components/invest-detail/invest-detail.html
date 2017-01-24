@@ -1,37 +1,63 @@
-<ion-header [class.filt]="backEnd">
+<ion-header>
   <ion-navbar color="primary" no-border-bottom>
     <ion-title>{{invest.title}}</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content [class.filt]="backEnd">
-  <!--<ion-fab right top edge>-->
-    <!--<button ion-fab >-->
-      <!--立即<br/>投资-->
-    <!--</button>-->
-  <!--</ion-fab>-->
+<ion-content>
   <ion-slides [options]="slideOptions">
-
     <ion-slide class="invest">
-
       <p class="title">
         F-1030-7890
       </p>
       <!-- h:155px + p-b:14px-->
       <div class="rate">
         <h1 color="primary">
-          {{invest.rate}}
+          {{invest.profitRate|number:'1.0-2'}}
           <span>%</span>
         </h1>
-        <ion-progress [max]="invest.money" [existed]="invest.existed"></ion-progress>
-        <ion-chip [ngSwitch]="invest.mark">
-          <ion-icon *ngSwitchCase="'1'">信</ion-icon>
-          <ion-icon *ngSwitchCase="'2'">担</ion-icon>
-          <ion-icon *ngSwitchCase="'3'">押</ion-icon>
-          <ion-icon *ngSwitchCase="'4'">实</ion-icon>
-          <ion-icon *ngSwitchCase="'5'">保</ion-icon>
-          <ion-icon *ngSwitchCase="'6'">转</ion-icon>
+        <ion-progress [max]="invest.borrowMoney" *ngIf="invest.remainderMoney > 0" [existed]="(invest.borrowMoney - invest.remainderMoney)"></ion-progress>
+
+        <ion-chip *ngIf="invest.borrowmark.mark1 == '1'">
+          <ion-icon>信</ion-icon>
           <ion-label>
-            {{invest.level}}
+            {{invest?.level}}
+          </ion-label>
+        </ion-chip>
+
+        <ion-chip *ngIf="invest.borrowmark.mark2 == '1'">
+          <ion-icon>担</ion-icon>
+          <ion-label>
+            {{invest?.level}}
+          </ion-label>
+        </ion-chip>
+
+        <ion-chip *ngIf="invest.borrowmark.mark3 == '1'">
+          <ion-icon>抵</ion-icon>
+          <ion-label>
+            {{invest?.level}}
+          </ion-label>
+        </ion-chip>
+
+
+        <ion-chip *ngIf="invest.borrowmark.mark4 == '1'">
+          <ion-icon>实</ion-icon>
+          <ion-label>
+            {{invest?.level}}
+          </ion-label>
+        </ion-chip>
+
+
+        <ion-chip *ngIf="invest.borrowmark.mark5 == '1'">
+          <ion-icon>保</ion-icon>
+          <ion-label>
+            {{invest?.level}}
+          </ion-label>
+        </ion-chip>
+
+        <ion-chip *ngIf="invest.borrowmark.mark6 == '1'">
+          <ion-icon>流</ion-icon>
+          <ion-label>
+            {{invest?.level}}
           </ion-label>
         </ion-chip>
 
@@ -39,15 +65,15 @@
         <ion-grid>
           <ion-row style="">
             <ion-col width-33>
-              <h3>{{invest.date}}个月</h3>
+              <h3>{{invest.borrowDeadline}}个月</h3>
               <p>借款期限</p>
             </ion-col>
             <ion-col width-33>
-              <h3>{{invest.money|number:'1.0-0'}}元</h3>
+              <h3>{{invest.borrowMoney|number:'1.0-0'}}元</h3>
               <p>借款金额</p>
             </ion-col>
             <ion-col width-33>
-              <h3>{{invest.existed|number:"1.0-0"}}元</h3>
+              <h3>{{(invest.borrowMoney - invest.remainderMoney)|number:"1.0-0"}}元</h3>
               <p>剩余投资金额</p>
             </ion-col>
           </ion-row>
@@ -56,17 +82,18 @@
       <ion-list>
         <ion-item>
           还款方式
-          <ion-note style="margin-left: 15px;">按月付息,到期还款</ion-note>
-          <ion-icon name="help-circle" color="primary" item-right></ion-icon>
+          <ion-note style="margin-left: 15px;">{{invest.repaymentType}}</ion-note>
+          <ion-icon name="help-circle" color="primary" item-right (click)="showDetailPage()"></ion-icon>
         </ion-item>
         <ion-item>
           借款协议
+          <ion-note style="margin-left: 15px;">{{invest.borrowType}}</ion-note>
           <ion-icon name="information-circle" color="primary" item-right></ion-icon>
         </ion-item>
 
       </ion-list>
       <div padding>
-        <button ion-button block (click)="openInvester()" [hidden]="!userOn">立即投资</button>
+        <button ion-button block (click)="openInvester()" *ngIf="invest.remainderMoney > 0" [hidden]="!userOn">立即投资</button>
         <button ion-button block (click)="login()" [hidden]="userOn">登录</button>
       </div>
 
@@ -90,177 +117,143 @@
           <ion-segment-button value="2">
             投资人列表
           </ion-segment-button>
-
-          <ion-segment-button value="3">
-            常见问题
-          </ion-segment-button>
         </ion-segment>
       </ion-toolbar>
 
 
       <ion-slides #sliderDetail (ionDidChange)="onSlideChanged()">
         <ion-slide>
-            <ion-card>
-              <ion-card-content>
-                <ion-card-header>
-                  用户信息
-                </ion-card-header>
-                <ion-grid>
-                  <ion-row wrap>
-                    <ion-col width-50>
-                      <ion-row>
-                        <ion-col width-50>
-                          昵 &nbsp; &nbsp; &nbsp; 称:
-                        </ion-col>
-                        <ion-col width-50>
-                          {{'曾先生'|masks:userOn}}
-                        </ion-col>
-                      </ion-row>
-                    </ion-col>
-                    <ion-col width-50>
-                      <ion-row>
-                        <ion-col width-50>
-                          公司行业:
-                        </ion-col>
-                        <ion-col width-50>
-                          {{'一般民营企业'|masks:userOn}}
-                        </ion-col>
-                      </ion-row>
-                    </ion-col>
+          <ion-card>
+            <ion-card-content>
+              <ion-card-header>
+                用户信息
+              </ion-card-header>
+              <ion-grid>
+                <ion-row wrap>
+                  <ion-col width-50>
+                    <ion-row>
+                      <ion-col width-50>
+                        昵 &nbsp; &nbsp; &nbsp; 称:
+                      </ion-col>
+                      <ion-col width-50>
+                        {{invest.basicInfo.nickname|masks:userOn}}
+                      </ion-col>
+                    </ion-row>
+                  </ion-col>
+                  <ion-col width-50>
+                    <ion-row>
+                      <ion-col width-50>
+                        公司行业:
+                      </ion-col>
+                      <ion-col width-50>
+                        {{invest.jobInfo.companyType|masks:userOn}}
+                      </ion-col>
+                    </ion-row>
+                  </ion-col>
 
-                    <ion-col width-50>
-                      <ion-row>
-                        <ion-col width-50>
-                          性 &nbsp; &nbsp; &nbsp; 别:
-                        </ion-col>
-                        <ion-col width-50>
-                          {{'男'|masks:userOn}}
-                        </ion-col>
-                      </ion-row>
-                    </ion-col>
+                  <ion-col width-50>
+                    <ion-row>
+                      <ion-col width-50>
+                        性 &nbsp; &nbsp; &nbsp; 别:
+                      </ion-col>
+                      <ion-col width-50>
+                        {{(invest.basicInfo.gender == "F")?"女":"男"|masks:userOn}}
+                      </ion-col>
+                    </ion-row>
+                  </ion-col>
 
-                    <ion-col width-50>
-                      <ion-row>
-                        <ion-col width-50>
-                          工作年限:
-                        </ion-col>
-                        <ion-col width-50>
-                          {{'5年以上'|masks:userOn}}
-                        </ion-col>
-                      </ion-row>
-                    </ion-col>
+                  <ion-col width-50>
+                    <ion-row>
+                      <ion-col width-50>
+                        公司规模:
+                      </ion-col>
+                      <ion-col width-50>
+                        {{invest.jobInfo.scale|masks:userOn}}
+                      </ion-col>
+                    </ion-row>
+                  </ion-col>
 
-                    <ion-col width-50>
-                      <ion-row>
-                        <ion-col width-50>
-                          学 &nbsp; &nbsp; &nbsp; 历:
-                        </ion-col>
-                        <ion-col width-50>
-                          {{'本科'|masks:userOn}}
-                        </ion-col>
-                      </ion-row>
-                    </ion-col>
+                  <ion-col width-50>
+                    <ion-row>
+                      <ion-col width-50>
+                        学 &nbsp; &nbsp; &nbsp; 历:
+                      </ion-col>
+                      <ion-col width-50>
+                        {{invest.basicInfo.education|masks:userOn}}
+                      </ion-col>
+                    </ion-row>
+                  </ion-col>
 
-                    <ion-col width-50>
-                      <ion-row>
-                        <ion-col width-50>
-                          工作年限:
-                        </ion-col>
-                        <ion-col width-50>
-                          {{'5年以上'|masks:userOn}}
-                        </ion-col>
-                      </ion-row>
-                    </ion-col>
+                  <ion-col width-50>
+                    <ion-row>
+                      <ion-col width-50>
+                        工作年限:
+                      </ion-col>
+                      <ion-col width-50>
+                        {{invest.jobInfo.workYears|masks:userOn}}
+                      </ion-col>
+                    </ion-row>
+                  </ion-col>
 
-                    <ion-col width-50>
-                      <ion-row>
-                        <ion-col width-50>
-                          工作城市:
-                        </ion-col>
-                        <ion-col width-50>
-                          {{'5年以上'|masks:userOn}}
-                        </ion-col>
-                      </ion-row>
-                    </ion-col>
+                  <ion-col width-50>
+                    <ion-row>
+                      <ion-col width-50>
+                        工作城市:
+                      </ion-col>
+                      <ion-col width-50>
+                        {{invest.jobInfo.workCity|masks:userOn}}
+                      </ion-col>
+                    </ion-row>
+                  </ion-col>
 
-                    <ion-col width-50>
-                      <ion-row>
-                        <ion-col width-50>
-                          月 &nbsp;收 &nbsp;入:
-                        </ion-col>
-                        <ion-col width-50>
-                          {{'50000元以上'|masks:userOn}}
-                        </ion-col>
-                      </ion-row>
-                    </ion-col>
-                  </ion-row>
+                  <ion-col width-50>
+                    <ion-row>
+                      <ion-col width-50>
+                        月 &nbsp;收 &nbsp;入:
+                      </ion-col>
+                      <ion-col width-50>
+                        {{invest.jobInfo.salary|masks:userOn}}
+                      </ion-col>
+                    </ion-row>
+                  </ion-col>
+                </ion-row>
 
-                  <ion-row style="border-top:1px solid #eee;">
-                    <ion-col width-25>
-                      房产:{{'有'|masks:userOn}}
-                    </ion-col>
-                    <ion-col width-25>
-                      房贷:{{'无'|masks:userOn}}
-                    </ion-col>
-                    <ion-col width-25>
-                      车产:{{'有'|masks:userOn}}
-                    </ion-col>
-                    <ion-col width-25>
-                      车贷:{{'无'|masks:userOn}}
-                    </ion-col>
-                  </ion-row>
-                </ion-grid>
+                <ion-row style="border-top:1px solid #eee;">
+                  <ion-col width-25>
+                    房产:{{invest.assetInfo.houseStatus?'有':"无"|masks:userOn}}
+                  </ion-col>
+                  <ion-col width-25>
+                    房贷:{{invest.assetInfo.mortgage?'有':'无'|masks:userOn}}
+                  </ion-col>
+                  <ion-col width-25>
+                    车产:{{invest.assetInfo.carStatus?'有':'无'|masks:userOn}}
+                  </ion-col>
+                  <ion-col width-25>
+                    车贷:{{invest.assetInfo.carLoan?'有':'无'|masks:userOn}}
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
 
-                <ion-card-header>
-                  认证信息
-                </ion-card-header>
-                <ion-grid>
-                  <ion-row wrap>
-                    <ion-chip>
-                      <ion-icon name="checkmark"></ion-icon>
-                      <ion-label>身份证</ion-label>
-                    </ion-chip>
-                    <ion-chip>
-                      <ion-icon name="checkmark"></ion-icon>
-                      <ion-label>户口本</ion-label>
-                    </ion-chip>
-                    <ion-chip>
-                      <ion-icon name="checkmark"></ion-icon>
-                      <ion-label>身份证</ion-label>
-                    </ion-chip>
-                    <ion-chip>
-                      <ion-icon name="checkmark"></ion-icon>
-                      <ion-label>银行对账单</ion-label>
-                    </ion-chip>
-                    <ion-chip>
-                      <ion-icon name="checkmark"></ion-icon>
-                      <ion-label>书面申请表</ion-label>
-                    </ion-chip>
-                    <ion-chip>
-                      <ion-icon name="checkmark"></ion-icon>
-                      <ion-label>房产证</ion-label>
-                    </ion-chip>
-                    <ion-chip>
-                      <ion-icon name="checkmark"></ion-icon>
-                      <ion-label>结婚证</ion-label>
-                    </ion-chip>
-                    <ion-chip>
-                      <ion-icon name="checkmark"></ion-icon>
-                      <ion-label>银行卡复印件</ion-label>
-                    </ion-chip>
-                  </ion-row>
-                </ion-grid>
+              <ion-card-header>
+                认证信息
+              </ion-card-header>
+              <ion-grid>
+                <ion-row wrap>
+                  <ion-chip *ngFor="let auth of invest.auth">
+                    <ion-icon name="checkmark"></ion-icon>
+                    <ion-label>{{auth.name}}</ion-label>
+                  </ion-chip>
+                </ion-row>
+              </ion-grid>
 
-              </ion-card-content>
-            </ion-card>
+            </ion-card-content>
+          </ion-card>
         </ion-slide>
 
         <ion-slide>
           <ion-card>
             <ion-card-content style="    text-align: start;">
-              {{"借款人是武汉人,在武汉市经营一家高新网络科技有限公司,规模庞大,经营状况良好,还款来源明确.现因企业资金周转,"+
-              "以本企业5.69%的股份进行质押,向亿富贷提出伍拾万元借款申请.以上情况经亿富贷实地考察情况属实.符合亿富贷考核标准.给予"+
-              "授信贰佰万元借款额度,期限为期12个月,可循环使用."|masks:userOn}}
+              {{invest.description|masks:userOn}}
             </ion-card-content>
           </ion-card>
         </ion-slide>
@@ -270,70 +263,28 @@
             <ion-card-content class="invest-list">
               <ion-grid>
                 <ion-row>
-                    <ion-col width-25>
-                      投资人
-                    </ion-col>
-                    <ion-col width-50>
-                      投资金额
-                    </ion-col>
-                    <ion-col width-25>
-                      申购时间
-                    </ion-col>
-                </ion-row>
-                <ion-row>
-                    <ion-col width-25>
-                      王胜利
-                    </ion-col>
-                    <ion-col width-50>
-                      10000
-                    </ion-col>
-                    <ion-col width-25>
-                      2016-11-11
-                    </ion-col>
-                </ion-row>
-                <ion-row>
                   <ion-col width-25>
-                    王胜利
+                    投资人
                   </ion-col>
                   <ion-col width-50>
-                    10000
+                    投资金额
                   </ion-col>
                   <ion-col width-25>
-                    2016-11-11
+                    申购时间
                   </ion-col>
                 </ion-row>
-                <ion-row>
+                <ion-row *ngFor="let investment of invest.investments">
                   <ion-col width-25>
-                    王胜利
+                    {{investment.userName}}
                   </ion-col>
                   <ion-col width-50>
-                    10000
+                    {{investment.money}}
                   </ion-col>
                   <ion-col width-25>
-                    2016-11-11
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col width-25>
-                    王胜利
-                  </ion-col>
-                  <ion-col width-50>
-                    10000
-                  </ion-col>
-                  <ion-col width-25>
-                    2016-11-11
+                    {{investment.time}}
                   </ion-col>
                 </ion-row>
               </ion-grid>
-            </ion-card-content>
-          </ion-card>
-        </ion-slide>
-
-        <ion-slide>
-          <ion-card>
-            <ion-card-content>
-              <h3>asfas</h3>
-              <p>sdasasf</p>
             </ion-card-content>
           </ion-card>
         </ion-slide>

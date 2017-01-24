@@ -1,44 +1,99 @@
-import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-
-import { Keyboard } from "ionic-native";
 import 'rxjs/add/operator/map';
 import "rxjs/add/operator/toPromise";
 
-import { Events,AlertController,ToastController } from "ionic-angular";
+import { UserService } from "./user-service";
+import { Utils } from "./utils";
+
+import {Events, LoadingController} from "ionic-angular";
 import { Storage } from "@ionic/storage";
-import { User } from "../model";
-
-
+import { User } from "./model";
+import {Injectable} from "@angular/core";
 
 @Injectable()
 export class UserData {
   user:User;
   HAS_LOGGED_IN = "hasLoggedIn";
   PRIVACY = "privacy";
+  private token:string;
 
-  constructor(public events:Events,public http: Http,public storage:Storage,private alertCtrl:AlertController,private toast:ToastController) {
+
+  constructor(public events:Events,public userService:UserService ,public utils:Utils,public storage:Storage,public loading:LoadingController) {
 
   }
 
+  //用户隐私 √
   setPrivacy(bool:boolean){
     this.storage.set(this.PRIVACY,bool);
     this.events.publish("togglePrivacy",bool);
   }
 
-  presentAlert(obj:{}){
-    let alert = this.alertCtrl.create(obj);
-    alert.present();
-  }
-
-  //用户隐私
+  //用户隐私 √
   privacyStatus(){
     return this.storage.get(this.PRIVACY);
+
+  }
+
+  // 获取口令 √
+  getToken():string{
+    return this.token;
+  }
+
+
+  //登录页面(loginPage) 登录 √
+  loginWithOutPop(phone:string,password:string){
+    let loader = this.loading.create({
+      content:"请稍后.."
+    });
+    loader.present();
+    this.userService.getUsers(phone,password).subscribe(
+      (remote) => {
+        loader.dismiss();
+        if("message" in remote){
+          if(remote["message"] == "SUCCESS"){
+            if("data" in remote){
+              remote["data"] = JSON.parse(remote["data"]);
+              this.token = remote["data"]["token"];
+              this.getUserFormService(this.token);
+            }
+          }else{
+            this.utils.toastShow(remote["message"]);
+          }
+        }
+      },(err) => {
+
+      },() => {
+
+      }
+    )
+  }
+
+  getUserFormService(token:string){
+    this.userService.getUserRemote(token).subscribe(
+      (remote) =>{
+        if("message" in remote){
+          if(remote["message"] == "SUCCESS"){
+            this.saveUser(<User>JSON.parse(remote["data"]));
+          }else{
+            this.events.publish("user:err");
+            this.utils.toastShow(remote["message"]);
+          }
+        }
+      },
+      (err) => {}
+    );
+  }
+
+  //保存用户 √
+  saveUser(user:User){
+    this.user = user;
+    this.storage.set("user",this.user);
+    this.storage.set(this.HAS_LOGGED_IN,true);
+    this.events.publish("user:login",this.user);
   }
 
   //登录
   login(){
-    let prompt = this.alertCtrl.create({
+    this.utils.presentAlert({
       title:"登录",
       inputs:[
         {
@@ -57,54 +112,32 @@ export class UserData {
           text:"取消",
           role:"cancel",
           handler:data => {
+
           }
         },
         {
           text:"登录",
           handler:data => {
-            this.loginWithForm(data.phone,data.pswd);
+            this.loginWithOutPop(data.phone,data.pswd);
           }
         }
       ]
     });
-    prompt.onDidDismiss(bool =>{
-      if(bool){
-        Keyboard.close();
-      }
-    });
-    prompt.present();
   }
 
-  toastShow(message:string,position:string = 'top'){
-    let toast = this.toast.create({
-      message:message,
-      duration:3000,
-      position:position,
-      showCloseButton: true,
-      closeButtonText: '确定'
-    });
-
-    toast.present();
+  // 检查用户是否有可投资权限
+  checkUserInvestPermission(user:User):boolean{
+    return (user.queryIsSetPayPasswordRequest&&user.identityAuthentication&&user.isAuthorization);
   }
 
-  loginWithForm(phone,pswd){
-    this.getUser().then(user => {
-      if (user.phone == phone && user.password == pswd) {
-        this.storage.set(this.HAS_LOGGED_IN, true);
-        this.events.publish("user:login", user);
-      } else {
-        this.storage.set(this.HAS_LOGGED_IN, false);
-        this.events.publish("user:logError", "账号或密码错误");
-      }
-    });
-  }
-
+  // 获取 用户登录状态
   getStatus(){
     return this.storage.get(this.HAS_LOGGED_IN);
   }
 
+  // 退出
   logout(){
-    let confirm = this.alertCtrl.create({
+    this.utils.presentAlert({
       title:"安全退出?",
       message:"点击确认,退出用户.",
       buttons:[
@@ -123,48 +156,20 @@ export class UserData {
         }
       ]
     });
-    confirm.present();
   }
 
-  setUsername(username:string){
-    this.storage.get("user").then((user)=>{
-      user.name = username;
-      this.storage.set("user",user);
-    });
-  }
-
+  // 获取用户数据缓存
   getLocalUser():User{
     return this.user;
   }
 
-  getRemoteUser():Promise<User>{
-    return this.http.get("assets/data/user.json")
-      .toPromise()
-      .then(res => res.json())
-      .catch(this.handleError);
+  // 从缓存取 User
+  getUserData(){
+    return this.storage.get("user");
   }
 
-  getUserData():any{
-    return this.http.get("assets/data/user.json")
-      .map(res => res.json());
-  }
-
-  getUser():Promise<User>{
-    return new Promise(resolve =>{
-      this.http.get("assets/data/user.json")
-        .map(res => res.json())
-        .subscribe(
-          user =>{this.user = <User>user;resolve(this.getLocalUser());},
-          error => { Promise.reject(error);}
-      );
-    });
-  }
-
-  private handleError(error:any):Promise<any>{
-    return Promise.reject(error.message || error);
-  }
-
-  updateUser(user:User){
+  // 更新缓存用户
+  updateStoreUser(user:User){
     this.storage.set("user",user);
   }
 }
