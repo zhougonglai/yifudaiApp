@@ -1,3 +1,28 @@
 page-paper {
+  ion-card {
+    position: relative;
+    ion-img{
+      height: 200px;
+    }
+    ion-chip{
+      position: absolute;
+      right:10px;
+      background:$light !important;
+      bottom: 20px;
+      z-index: 999;
+
+      ion-icon{
+        text-align: center;
+      }
+
+      ion-label{
+      }
+    }
+    ion-item{
+
+    }
+  }
+
+
 
 }

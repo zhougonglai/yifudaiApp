@@ -1,10 +1,17 @@
 page-borrow {
+  ion-list{
+    margin:5px 0 0 !important;
+  }
+
   ion-grid{
-    padding: 0;
+    padding: 15px 0 0;
     ion-row{
+
       ion-col{
         padding: 0;
         text-align: center;
+        border: 1px solid $dirty;
+        margin: 0 -1px -1px 0;
         .icon{
           margin-top:1.6em;
           height: 60px;

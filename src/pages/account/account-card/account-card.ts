@@ -12,12 +12,41 @@ import {UserData} from "../../../providers/user-data";
 export class AccountCardPage {
   token:string;
   user:User;
+  page:number = 1;
+  isDone:boolean = false;
 
-  constructor(public viewCtrl:ViewController,public actionSheet:ActionSheetController,public modalCtrl:ModalController,public userData:UserData,private events:Events) {
+  constructor(public viewCtrl:ViewController,public actionSheet:ActionSheetController,public modalCtrl:ModalController,private userData:UserData,private events:Events) {
     this.userData.getUserData().then(user =>{
       this.user = user;
-      console.log(user);
+      this.isDone = true;
+      if(this.user.bankCard.length == 10){
+
+      }
     });
+  }
+
+  doRefresh(refresher){
+    this.isDone = false;
+    //  -- refresh start
+    this.token = this.userData.getToken();
+    if(this.token){
+      this.userData.getUserFormService(this.token);
+    }else{
+      this.userData.login();
+    }
+    // -- refresh end
+
+
+    setTimeout(() => {
+      this.isDone = true;
+      refresher.complete();
+    },2000);
+  }
+
+  doInfinite(infiniteScroll){
+    setTimeout(() => {
+      infiniteScroll.complete();
+    }, 500);
   }
 
   presentActionSheet(){

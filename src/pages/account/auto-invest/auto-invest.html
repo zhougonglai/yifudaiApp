@@ -2,7 +2,7 @@
   <ion-navbar  color="primary">
     <ion-title>自动投标</ion-title>
     <ion-buttons right>
-      <button ion-button>
+      <button ion-button (click)="newAutoInvest()">
         新增自动投标
         <svg class="icon" aria-hidden="true" style="font-size: 2em;">
           <use xlink:href="#icon-speedometer"></use>
@@ -12,69 +12,45 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-card>
+  <app-loading *ngIf="!isDone"></app-loading>
+  <ion-card [hidden]="!isDone" *ngFor="let autoInvest of autoInvests">
     <ion-item>
       <ion-label>
-        账户保留金额: 0.00
+        账户保留金额:{{autoInvest.account}}
       </ion-label>
-      <ion-toggle cheched="false"></ion-toggle>
+      <ion-toggle [checked]="autoInvest?.auopen != '关闭状态'"></ion-toggle>
+
+      <button ion-button small outline item-right color="danger" (click)="deleteAutoAmount(autoInvest.id)">删除</button>
     </ion-item>
     <ion-card-content>
       <ion-grid>
         <ion-row>
           <ion-col width-50>
             <h2>每次投标金额</h2>
-            <p>3,000.00</p>
+            <p>{{autoInvest.amount}}</p>
           </ion-col>
           <ion-col width-50>
             <h2>利息范围</h2>
-            <p>9.0%-14%</p>
+            <p>{{autoInvest.interestrangeone}}%-{{autoInvest.interestrangetwo}}%</p>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col width-50>
             <h2>借款期限</h2>
-            <p>1-12月</p>
+            <p>{{autoInvest.loantermone}}-{{autoInvest.loantermtwo}}月</p>
           </ion-col>
           <ion-col width-50>
             <h2>信用等级范围</h2>
-            <p>2,256.25</p>
+            <p>{{autoInvest.creditratingone}} - {{autoInvest.creditratingtwo}}</p>
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
-    <ion-item>
-      <ion-label>
-        账户保留金额: 0.00
-      </ion-label>
-      <ion-toggle checked="true"></ion-toggle>
-    </ion-item>
-    <ion-card-content>
-      <ion-grid>
-        <ion-row>
-          <ion-col width-50>
-            <h2>每次投标金额</h2>
-            <p>3,000.00</p>
-          </ion-col>
-          <ion-col width-50>
-            <h2>利息范围</h2>
-            <p>9.0%-14%</p>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col width-50>
-            <h2>借款期限</h2>
-            <p>1-12月</p>
-          </ion-col>
-          <ion-col width-50>
-            <h2>信用等级范围</h2>
-            <p>2,256.25</p>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingText="加载中...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

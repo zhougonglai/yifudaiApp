@@ -14,11 +14,11 @@ import { NavController } from 'ionic-angular';
 export class MapPage {
   image:string;
   constructor(public navCtrl: NavController) {
-    this.image = "http://www.gbtags.com/gb/laitu/400x200";
+    this.image = "./assets/imgs/new.png";
   }
 
   ionViewDidLoad() {
-    console.log('Hello MapPage Page');
+
   }
 
 }

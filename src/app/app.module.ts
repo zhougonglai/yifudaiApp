@@ -49,6 +49,9 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import {AccountInvitePage} from "../pages/account/account-invite/account-invite";
 import {BackendComponent} from "../components/backend/backend";
 import {AppLoadingComponent} from "../components/app-loading/app-loading";
+import {SaveTyPage} from "../pages/home/save-ty/save-ty";
+import {InveterPage} from "../pages/home/inveter/inveter";
+import {NewAutoInvestPage} from "../pages/account/auto-invest/new-auto-invest/new-auto-invest";
 
 
 
@@ -89,7 +92,9 @@ import {AppLoadingComponent} from "../components/app-loading/app-loading";
     IndustryTrendsPage,
     MediaNiewPage,
     BackendComponent,
-
+    SaveTyPage,
+    InveterPage,
+    NewAutoInvestPage,
 
     Masks
   ],
@@ -135,6 +140,9 @@ import {AppLoadingComponent} from "../components/app-loading/app-loading";
     UserInvestDetailPage,
     MediaNiewPage,
     IndustryTrendsPage,
+    SaveTyPage,
+    InveterPage,
+    NewAutoInvestPage,
 
     BackendComponent
 

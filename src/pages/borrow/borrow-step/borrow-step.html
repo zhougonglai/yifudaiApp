@@ -4,67 +4,30 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-card [hidden]="!(step == 1)">
+  <ion-card>
     <ion-item>
-      <ion-input type="text" placeholder="您本人实名验证的手机号"></ion-input>
-      <ion-icon name="phone-portrait" color="primary" item-right></ion-icon>
-    </ion-item>
-
-    <ion-item>
-      <ion-input type="password" placeholder="请输入验证码"></ion-input>
-      <ion-buttons item-right>
-        <button ion-button outline small>
-          获取验证码
-        </button>
-      </ion-buttons>
-    </ion-item>
-
-    <div padding>
-      <button ion-button block (click)="nextStep()">下一步</button>
-    </div>
-  </ion-card>
-
-  <ion-card [hidden]="!(step == 2)">
-    <ion-item>
-      <ion-input type="text" placeholder="姓名"></ion-input>
-      <ion-icon name="person" color="primary" item-right></ion-icon>
-    </ion-item>
-
-    <ion-item>
-      <ion-input type="password" placeholder="身份证号"></ion-input>
-      <ion-icon name="contact" color="primary" item-right></ion-icon>
-    </ion-item>
-
-    <div padding>
-      <button ion-button block (click)="nextStep()">下一步</button>
-    </div>
-  </ion-card>
-
-  <ion-card [hidden]="!(step == 3)">
-    <ion-item>
-      <ion-input type="text" placeholder="借款金额"></ion-input>
+      <ion-input type="tel" placeholder="借款金额(2000-2000000之间且为100的整数倍)" [(ngModel)]="model.money"></ion-input>
       <ion-icon name="cash" color="primary" item-right></ion-icon>
     </ion-item>
 
     <ion-item>
       <ion-label>借款期限</ion-label>
-      <ion-select [(ngModel)]="date" cancelText="取消" okText="确定">
-        <ion-option *ngFor="let item of dates" [value]="item">{{item}}个月</ion-option>
+      <ion-select [(ngModel)]="model.date" cancelText="取消" okText="确定" *ngIf="dates">
+        <ion-option *ngFor="let item of dates" [value]="item.name">{{item.name}}个月</ion-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
       <ion-label>还款方式</ion-label>
-      <ion-select [(ngModel)]="type" cancelText="取消" okText="确定">
-        <ion-option *ngFor="let item of types" [value]="item">
-          <span *ngIf="item == 1">按月付息,到期还本</span>
-          <span *ngIf="item == 2">按月等额本息还款</span>
+      <ion-select [(ngModel)]="model.type" cancelText="取消" okText="确定" *ngIf="types">
+        <ion-option *ngFor="let item of types" [value]="item.id">
+          {{item.title}}
         </ion-option>
       </ion-select>
     </ion-item>
 
     <div padding>
-      <button ion-button block>下一步</button>
+      <button ion-button block (click)="sendForm(model)">下一步</button>
     </div>
   </ion-card>
 </ion-content>

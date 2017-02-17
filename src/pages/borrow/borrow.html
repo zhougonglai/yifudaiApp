@@ -1,26 +1,43 @@
 <!--<ion-header>-->
-
   <!--<ion-navbar  color="primary">-->
     <!--<ion-title>我的借款</ion-title>-->
   <!--</ion-navbar>-->
-
 <!--</ion-header>-->
 <ion-content>
   <ion-grid>
+    <ion-list no-lines text-center>
+      <button ion-button clear small>
+        抵押贷
+      </button>
+    </ion-list>
     <ion-row wrap>
-      <ion-col width-50 (click)="borrowStep()">
+      <ion-col width-50 (click)="borrowStep(6)">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-caravan"></use>
+        </svg>
+        <p>车抵押贷款</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-list no-lines text-center>
+      <button ion-button clear small>
+        消费贷
+      </button>
+    </ion-list>
+    <ion-row wrap>
+      <ion-col width-50 (click)="borrowStep(1)">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-insurance"></use>
         </svg>
         <p>精英贷</p>
       </ion-col>
-      <ion-col width-50 (click)="borrowStep()">
+      <ion-col width-50 (click)="borrowStep(2)">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-hotel"></use>
         </svg>
         <p>校园分期</p>
       </ion-col>
-      <ion-col width-50 (click)="borrowStep()">
+      <ion-col width-50 (click)="borrowStep(3)">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-bell"></use>
         </svg>
@@ -28,23 +45,17 @@
       </ion-col>
 
 
-      <ion-col width-50 (click)="borrowStep()">
+      <ion-col width-50 (click)="borrowStep(4)">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-island"></use>
         </svg>
         <p>旅游分期</p>
       </ion-col>
-      <ion-col width-50 (click)="borrowStep()">
+      <ion-col width-50 (click)="borrowStep(5)">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-car-2"></use>
         </svg>
         <p>汽车分期</p>
-      </ion-col>
-      <ion-col width-50 (click)="borrowStep()">
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-exchange"></use>
-        </svg>
-        <p>常规贷款</p>
       </ion-col>
     </ion-row>
   </ion-grid>

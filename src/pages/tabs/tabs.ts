@@ -59,7 +59,7 @@ export class TabsPage {
       }
     ];
     event.subscribe("invest:done",()=>{
-      this.tabs.select(2);
+      this.tabs.select(1);
     });
   }
 }

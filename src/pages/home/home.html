@@ -1,8 +1,3 @@
-<!--<ion-header>-->
-  <!--<ion-navbar color="primary">-->
-    <!--<ion-title>主页</ion-title>-->
-  <!--</ion-navbar>-->
-<!--</ion-header>-->
 <ion-content>
   <ion-slides [options]="slides">
     <ion-slide *ngFor="let item of slide">
@@ -13,28 +8,26 @@
   <ion-grid>
     <ion-row  class="row">
       <!--(click)="goToMap()"-->
-      <ion-col width-25>
+      <ion-col width-33 (click)="goToMap()">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-growth"></use>
         </svg>
         <p>指引</p>
       </ion-col>
       <!--(click)="openBrowser()"-->
-      <ion-col width-25>
+      <ion-col width-33 (click)="goToPaper()">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-rating"></use>
         </svg>
         <p>活动</p>
       </ion-col>
-      <!--(click)="openTheMeBrowser()"-->
-      <ion-col width-25>
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-stats"></use>
-        </svg>
-        <p>邀请</p>
-      </ion-col>
-      <!--(click)="openSafariBrowser()"-->
-      <ion-col width-25>
+      <!--<ion-col width-25 (click)="goToInveterPage()">-->
+        <!--<svg class="icon" aria-hidden="true">-->
+          <!--<use xlink:href="#icon-stats"></use>-->
+        <!--</svg>-->
+        <!--<p>邀请</p>-->
+      <!--</ion-col>-->
+      <ion-col width-33 (click)="goToSaveTy()">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-keyword"></use>
         </svg>
@@ -42,6 +35,12 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText="刷新" refreshingText="刷新中...">
+    </ion-refresher-content>
+  </ion-refresher>
+
 
   <ion-list no-lines>
     <button ion-button clear small>

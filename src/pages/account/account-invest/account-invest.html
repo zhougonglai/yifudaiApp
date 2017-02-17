@@ -15,5 +15,11 @@
     </ion-item>
   </ion-list>
 
-  <user-invest-item></user-invest-item>
+  <app-loading *ngIf="!isDone"></app-loading>
+  <user-invest-item [userInvest]="userInvest" *ngIf="isDone"></user-invest-item>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingText="加载中...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

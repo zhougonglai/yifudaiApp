@@ -6,10 +6,11 @@ import { PaperPage} from "./paper/paper";
 
 import { Invest,TransferCreditor} from "../../providers/model";
 
-import {InAppBrowser, ThemeableBrowser, SafariViewController} from "ionic-native";
 // import { UserService,Utils} from "../../providers";
 import { UserService } from "../../providers/user-service";
 import { Utils } from "../../providers/utils";
+import {SaveTyPage} from "./save-ty/save-ty";
+import {InveterPage} from "./inveter/inveter";
 
 
 @Component({
@@ -33,10 +34,16 @@ export class HomePage {
       pager:true
     };
     this.slide = [
-      "http://www.gbtags.com/gb/laitu/400x200","http://www.gbtags.com/gb/laitu/400x200","http://www.gbtags.com/gb/laitu/400x200"
+      "./assets/imgs/banner/banner_uplevel.jpg",
+      "./assets/imgs/banner/banner_coupon.jpg",
+      "./assets/imgs/banner/banner_savety.jpg"
     ];
 
-    userService.getDataList().subscribe(
+    this.getDataList();
+  }
+
+  getDataList(){
+    this.userService.getDataList().subscribe(
       (remote) => {
         if("message" in remote){
           if(remote["message"] == "SUCCESS"){
@@ -45,8 +52,6 @@ export class HomePage {
             setTimeout(()=>{
               this.isDone = true;
             },2000);
-
-            console.log(remote["data"]);
 
             if("sb" in remote["data"]){
               this.sanbiao = remote["data"]["sb"];
@@ -60,140 +65,38 @@ export class HomePage {
           }
         }
       },(err) => {
-        console.log(err);
+
       });
   }
 
-  openBrowser(){
-    let browser = new InAppBrowser('https://www.baidu.com/?fn=1425df-241-dfseeg-24sdg','_self');
-    browser.show();
-    browser.on("exit").subscribe(() =>{
-      this.utils.presentAlert({
-        title:"关闭浏览器",
-        subTitle:"test",
-        message:"关闭浏览器测试",
-        buttons:[
-          {
-            text:"确定",
-            handler:() =>{
+  doRefresh(refresher){
+    this.isDone = false;
+    //  -- refresh start
+    this.getDataList();
+    // -- refresh end
 
-            }
-          }
-        ]
-      });
-    });
+
+    setTimeout(() => {
+      this.isDone = true;
+      refresher.complete();
+    },2000);
   }
-
-  openTheMeBrowser(){
-    let options = {
-      statusbar: {
-        color: '#ffffffff'
-      },
-      toolbar: {
-        height: 44,
-        color: '#f0f0f0ff'
-      },
-      title: {
-        color: '#003264ff',
-        staticText:'Browser',
-        showPageTitle: true
-      },
-      backButton: {
-        image: 'back',
-        imagePressed: 'back_pressed',
-        align: 'left',
-        event: 'backPressed'
-      },
-      forwardButton: {
-        image: 'forward',
-        imagePressed: 'forward_pressed',
-        align: 'left',
-        event: 'forwardPressed'
-      },
-      closeButton: {
-        image: 'close',
-        imagePressed: 'close_pressed',
-        align: 'left',
-        event: 'closePressed'
-      },
-      customButtons: [
-        {
-          image: 'share',
-          imagePressed: 'share_pressed',
-          align: 'right',
-          event: 'sharePressed'
-        }
-      ],
-      menu: {
-        image: 'menu',
-        imagePressed: 'menu_pressed',
-        title: 'Test',
-        cancel: 'Cancel',
-        align: 'right',
-        items: [
-          {
-            event: 'helloPressed',
-            label: 'Hello World!'
-          },
-          {
-            event: 'testPressed',
-            label: 'Test!'
-          }
-        ]
-      },
-      backButtonCanClose: true
-    };
-
-    let browser = new ThemeableBrowser('https://www.baidu.com/?fn=1425df-241-dfseeg-24sdg', '_blank', options);
-
-    browser.show();
-  }
-
-  openSafariBrowser(){
-    SafariViewController.isAvailable()
-      .then(
-        (available: boolean) => {
-          if(available){
-
-            SafariViewController.show({
-              url: 'https://www.baidu.com/?fn=1425df-241-dfseeg-24sdg',
-              hidden: false,
-              animated: false,
-              transition: 'curl',
-              enterReaderModeIfAvailable: true,
-              tintColor: '#ff0000'
-            })
-              .then(
-                (result: any) => {
-                  if(result.event === 'opened'){
-
-                  }else if(result.event === 'loaded'){
-
-                  }else if(result.event === 'closed'){
-
-                  }
-                },
-                (error) => {
-
-                }
-              );
-
-          } else {
-            // use fallback browser, example InAppBrowser
-            this.openBrowser();
-          }
-        }
-      );
-  }
-
 
 
   goToMap(){
     this.navCtrl.push(MapPage);
   }
 
+  goToInveterPage(){
+    this.navCtrl.push(InveterPage);
+  }
+
   goToPaper(){
     this.navCtrl.push(PaperPage);
+  }
+
+  goToSaveTy(){
+    this.navCtrl.push(SaveTyPage);
   }
 
 }

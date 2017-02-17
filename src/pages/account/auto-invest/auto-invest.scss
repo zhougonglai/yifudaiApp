@@ -1,4 +1,9 @@
 page-auto-invest {
+
+  ion-content{
+    background-color:$dirty !important;
+  }
+
   ion-card{
     position:relative;
     ion-fab{

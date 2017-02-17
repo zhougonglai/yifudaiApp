@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>新增自动投标</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item>
+      账户余额(元):{{user?.money|number:"1.2-2" ||'----'}}
+    </ion-item>
+    <ion-item>
+      <ion-label>每次投标金额(元):</ion-label>
+      <ion-input type="tel" value="500" placeholder="100的整数倍"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>最小借款利率(%):</ion-label>
+      <ion-input type="tel" value="9" placeholder="例如:9.7,精确到小数点后1位"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>最大借款利率(%):</ion-label>
+      <ion-input type="tel" value="14"  placeholder="例如:14,精确到小数点后1位"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>借款期限:</ion-label>
+      <ion-select cancelText="取消" okText="确定" [selectOptions]="{title:'最小借款期限'}"  [(ngModel)]="minDate">
+        <ion-option *ngFor="let date of dates" [value]="date">{{date}}月</ion-option>
+      </ion-select>
+      <ion-select cancelText="取消" okText="确定" [selectOptions]="{title:'最大借款期限'}" [(ngModel)]="maxDate">
+        <ion-option *ngFor="let date of dates" [value]="date">{{date}}月</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>信用等级范围:</ion-label>
+      <ion-select cancelText="取消" okText="确定" [(ngModel)]="minLevel">
+        <ion-option *ngFor="let level of levels">{{level}}</ion-option>
+      </ion-select>
+      <ion-select cancelText="取消" okText="确定" [(ngModel)]="maxLevel">
+        <ion-option *ngFor="let level of levels">{{level}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>账户保留金额(元):</ion-label>
+      <ion-input type="tel" value="500" placeholder="100的整数倍"></ion-input>
+    </ion-item>
+  </ion-list>
+  <div padding>
+    <button ion-button block>确定</button>
+  </div>
+
+</ion-content>

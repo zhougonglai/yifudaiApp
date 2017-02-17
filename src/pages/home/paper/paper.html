@@ -1,8 +1,19 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>paper</ion-title>
+    <ion-title>活动专区</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content>
-
+  <ion-card *ngFor="let pager of pagers">
+    <ion-img [src]="pager.img"></ion-img>
+    <ion-chip>
+      <ion-icon [name]="pager.status?'radio-button-on':'radio-button-off'" [color]="pager.status?'primary':'danger'"></ion-icon>
+      <ion-label>{{pager.status?'进行中':'已结束'}}</ion-label>
+    </ion-chip>
+    <ion-item>
+      <h2>{{pager.title}} -- {{pager.subtitle}}
+      </h2>
+      <p>活动时间:{{pager.date}}</p>
+    </ion-item>
+  </ion-card>
 </ion-content>

@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import {Observable} from "rxjs";
 
 
+
 @Injectable()
 export class UserService {
   headers = new Headers({'Content-Type': 'application/json'});
@@ -152,5 +153,34 @@ export class UserService {
   public bindCardContinue(token:string,code:string,cardId:string){
     return this.http.post(this.url + "/app/business/securityinfo/continue",{data:JSON.stringify({code,cardId}),token},{headers:this.headers})
       .map((res:Response) => res.json());
+  }
+
+  //借款 数据
+  public borrowTermList(){
+    return this.http.get(this.url + "/app/business/eliteloan/borrowTermList",{headers:this.headers})
+      .map((res:Response) => res.json());
+  }
+
+  //借款 申请
+  public borrowRequest(token:string,borrowMoney:string,selectItem:string,repaymentType:string){
+    return this.http.post(this.url + "/app/business/eliteloan/borrowrequest",{data:JSON.stringify({borrowMoney,selectItem,repaymentType}),token},{headers:this.headers})
+      .map((res:Response) => res.json());
+  }
+
+  // 自动投标
+  public autoInvest(token:string,page:number = 1){
+    return this.http.post(this.url+`/app/query/autoInvest`,{data:JSON.stringify({page:page.toString()}),token},{headers:this.headers})
+      .map((res:Response) => res.json());
+  }
+
+  // 新增自动投标
+  public autoMatic(token:string,amount:string,range_one:string,range_two:string,term_one:string,term_two:string,rating_one:string,rating_two:string,account:string){
+    return this.http.post(this.url+`/app/query/automatic/save?amount=${amount}&&range_one=${range_one}&&range_two=${range_two}&&rating_one=${rating_one}&&rating_two=${range_two}&&account=${account}`,{token},{headers:this.headers})
+      .map((res:Response) => res.json());
+  }
+
+  // 删除
+  public deleteAutoMatic(id:number){
+    return this.http.get(this.url+`/app/query/automatic/delete?id=${id}`,{headers:this.headers});
   }
 }

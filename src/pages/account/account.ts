@@ -15,7 +15,7 @@ import {AccountEarningsPage} from "./account-earnings/account-earnings";
 import {AccountInvitePage} from "./account-invite/account-invite";
 import {Utils} from "../../providers/utils";
 import {UserService} from "../../providers/user-service";
-import { SafariViewController} from "ionic-native";
+import { InAppBrowser} from "ionic-native";
 
 
 @Component({
@@ -31,6 +31,7 @@ export class AccountPage{
   userOn:boolean;
   privacy:boolean;
   token:string;
+  browser:InAppBrowser;
 
   constructor(
     public navCtrl: NavController,
@@ -68,7 +69,7 @@ export class AccountPage{
   }
 
   goToAccountBalance(){
-    this.navCtrl.push(AccountBalancePage);
+    this.navCtrl.push(AccountBalancePage,{balance:this.user.money});
   }
 
   goToAccountCard(){
@@ -84,7 +85,12 @@ export class AccountPage{
   }
 
   goToAutoInvest(){
-    this.navCtrl.push(AutoInvestPage);
+    this.token = this.userData.getToken();
+    if(this.token){
+      this.navCtrl.push(AutoInvestPage,{token:this.token});
+    }else{
+      this.userData.login();
+    }
   }
 
   goToAccountEarningsPage(){
@@ -165,10 +171,12 @@ export class AccountPage{
               }
             ]
           });
-        }else{
+        } else {
           this.userData.login();
         }
       }
+    } else {
+      this.userData.login();
     }
   }
 
@@ -213,6 +221,8 @@ export class AccountPage{
           });
         }
       }
+    } else {
+      this.userData.login();
     }
   }
 
@@ -257,41 +267,17 @@ export class AccountPage{
          });
        }
      }
+   } else {
+     this.userData.login();
    }
   }
 
   openBrowser(url:string){
-    SafariViewController.isAvailable()
-      .then(
-        (available: boolean) => {
-          if(available){
-            SafariViewController.show({
-              url:url,
-              hidden: false,
-              animated: false,
-              transition: 'curl',
-              enterReaderModeIfAvailable: true,
-              tintColor: '#ff0000'
-            }).then((result: any) => {
-                  if(result.event === 'opened'){
-
-                  }else if(result.event === 'loaded'){
-
-                  }else if(result.event === 'closed'){
-                    this.util.presentAlert({
-                      title:"关闭浏览器",
-                      buttons:["确定"]
-                    });
-                  }
-                },(error) => {
-
-                });
-          } else {
-            // use fallback browser, example InAppBrowser
-            // this.openBrowser();
-          }
-        }
-      );
+    this.browser = new InAppBrowser(url,'_blank','location=yes');
+    this.browser.show();
+    this.browser.on('exit').subscribe(()=>{
+      this.userData.getUserFormService(this.token);
+    });
   }
 
   // 页面进入

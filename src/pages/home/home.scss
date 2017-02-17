@@ -10,10 +10,8 @@ page-home {
       .slide-zoom {
         height: 100%;
       }
-
-      img{
-        width: 100% !important;
-        height: 100% !important;
+      ion-img{
+        height: 100%;
       }
     }
   }
@@ -52,5 +50,6 @@ page-home {
   }
   ion-list{
     margin-bottom: 0 !important;
+    text-align: center;
   }
 }
